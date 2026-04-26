@@ -1,0 +1,517 @@
+Here are the two readmes, copied exactly from the provided documents and structured clearly with end-to-end information. 
+
+***
+
+# README 1: F1 Capstone Action Plan
+
+[cite_start]**F1 Capstone Action Plan** [cite: 397, 398]
+[cite_start]**What the AI Does vs What YOU Do Split Into Two Clear Lists** [cite: 399]
+
+### [cite_start]PART A - AI AGENT DOES THIS [cite: 400]
+* Give these exact prompts to Claude/Copilot. Paste. Review. [cite_start]Done. [cite: 400]
+
+### [cite_start]PART B- YOU DO THIS MANUALLY [cite: 401]
+* Tableau cannot be automated. [cite_start]These are step-by-step human actions. [cite: 402]
+
+---
+
+## [cite_start]PART A - Commands to Give the AI Agent [cite: 403]
+Each command below is a complete, self-contained prompt. [cite_start]Copy it exactly into Claude / GitHub Copilot / your AI tool. [cite: 404] The AI will write or fix the code. [cite_start]You review and commit. [cite: 405]
+
+[cite_start]**A1 - Fix Notebook 01: Extraction** [cite: 406, 407]
+[cite_start]**Command to give the AI:** [cite: 408]
+> You are cleaning and documenting a Jupyter notebook for a university capstone. [cite_start]The notebook is 01 extraction.ipynb. [cite: 409] [cite_start]It loads 14 CSV files from the Ergast Formula 1 database using dtype str to preserve \N null strings. [cite: 410] [cite_start]Your tasks: (1) Add a markdown cell at the top titled # Notebook 01 Data Extraction' with a clear purpose statement. [cite: 411] (2) [cite_start]Add a Section 0 markdown cell for imports and constants define BASE PATH and RAW PATH variables. [cite: 412] (3) [cite_start]Make sure every CSV load has a comment explaining what table it is. [cite: 413] (4) [cite_start]Add a final markdown cell with a summary: how many files loaded, total row count, shape of each table. [cite: 414] (5) Add assertions to verify each file loaded correctly (assert len (df) > 0). [cite_start]Keep all existing logic. [cite: 415] [cite_start]Only add structure, headers, and documentation. [cite: 416]
+
+[cite_start]**A2 - Fix Notebook 02: Cleaning** [cite: 417]
+[cite_start]**Command to give the AI:** [cite: 418]
+> [cite_start]You are restructuring and documenting 02 cleaning.ipynb for an F1 race strategy analytics capstone. [cite: 419] [cite_start]This notebook must: merge 14 Ergast CSVs into a single master_fact.csv, handle \N nulls, parse qualifying times from string (1:26.572) to milliseconds, categorize DNFs from statusId, and derive these columns: grid_to_finish_delta grid positionOrder, is dnf (binary), is_podium (binary), is_win (binary), is_pole (binary), era (V10/V8 or Turbo Hybrid based on year), qualifying_gap_ms best_q_ms pole_q_ms. [cite: 420] Add markdown section headers for each transformation step. [cite_start]Add a final assertions cell that checks: master_fact has no duplicate resultIds, all binary flags are 0 or 1, grid to finish delta has no nulls for classified finishers. [cite: 421] Output 3 CSVs: master_fact.csv, constructor_season_kpis.csv (grouped by constructor year), circuit_strategy_profile.csv (grouped by circuitId). [cite_start]Print shape of each output. [cite: 422]
+
+[cite_start]**A3 - Fix Notebook 03: EDA** [cite: 423]
+[cite_start]**Command to give the AI:** [cite: 424]
+> [cite_start]You are restructuring 03_eda.ipynb for an F1 race strategy analytics capstone. [cite: 425] [cite_start]The audience is a faculty evaluator who awards marks for INSIGHTS not just charts. [cite: 426] Rules: (1) Every chart title must be a business insight, not a description. [cite_start]BAD: 'Points by Constructor'. [cite: 427] [cite_start]GOOD: 'McLaren and Alpine Have Highest Points Efficiency Among Mid-Field Teams Since 2018'. [cite: 428] (2) [cite_start]Under every chart, add a markdown cell with 2-3 sentences explaining the BUSINESS meaning. [cite: 429] (3) [cite_start]The notebook must contain exactly these 8 analysis sections: Section 1 Points Efficiency trend per constructor (2010-2024). [cite: 430] Section 2 DNF Rate by constructor and by dnf_category. [cite_start]Section 3 Grid-to-Finish Delta distribution per constructor (box plot). [cite: 431] Section 4 Pit Stop Efficiency: avg pit duration per constructor per year trend. [cite_start]Section 5- Win/Podium Conversion Rate by constructor. [cite: 432] Section 6 Qualifying Gap to Pole by constructor (violin plot). [cite_start]Section 7 Correlation matrix of all numeric KPIs. [cite: 433] Section 8 Era comparison: key KPIs split by era column. Load data from data/processed/master_fact.csv and constructor_season_kpis.csv. [cite_start]Use matplotlib and seaborn. [cite: 434] [cite_start]Save all figures to reports/figures/ as PNG files. [cite: 435]
+
+[cite_start]**A4 - Fix Notebook 04: Statistical Analysis** [cite: 436]
+[cite_start]**Command to give the AI:** [cite: 437]
+> You are documenting and structuring 04 statistical analysis.ipynb for an F1 analytics capstone. [cite_start]This notebook is already partially complete. [cite: 438] [cite_start]Your tasks: (1) Add clear markdown section headers for each of these 6 analyses: OLS Regression, Hypothesis Test, K-Means Circuit Clustering, Pearson Correlation by Cluster, Stop Count Analysis by Cluster, Summary of Findings. [cite: 439, 440] (2) [cite_start]For OLS Regression: model is points grid + stop count + avg pit ms. [cite: 441] [cite_start]Print a clean summary of standardised beta coefficients with interpretation text. [cite: 442] (3) For Hypothesis Test: HO no difference in grid_to_finish_delta between fast vs slow pit stop constructors. [cite_start]Use t-test. [cite: 443] [cite_start]Print: t-statistic, p-value, and a plain English conclusion (e.g. 'We REJECT HO: faster pit stops are associated with +X.X positions gained per race'). [cite: 444] (4) For K-Means: K=3. Features: avg_delta, avg_qualifying_gap_ms, lap time std. Print cluster centroids. [cite_start]Label clusters as Qualifying-Dominant, Strategy-Dominant, Mixed. [cite: 445] (5) [cite_start]Add a final Section 7 markdown cell with the 5 Key Findings formatted as a numbered list in plain business English. [cite: 446] [cite_start]Each finding must be one sentence starting with 'Constructors who...' or 'Circuits where...'. [cite: 447] [cite_start]Export updated circuit strategy profile.csv with cluster label column. [cite: 448]
+
+[cite_start]**A5 - Fix Notebook 05: Final Load Prep** [cite: 449]
+[cite_start]**Command to give the AI:** [cite: 450]
+> You are fixing 05_final_load_prep.ipynb for Tableau compatibility. [cite_start]This notebook takes processed CSVs and applies final formatting before they are loaded into Tableau. [cite: 451] [cite_start]Required transformations: (1) Cast is win, is_dnf, is_podium, is_pole to int (0/1) Tableau needs integers for direct SUM aggregation. [cite: 452] (2) [cite_start]Fill grid NaN with 0 to represent pit lane starts. [cite: 453] (3) [cite_start]Add driver_name_display column surname + ', ' + forename. [cite: 454] (4) [cite_start]Add constructor_short: map full constructor names to 3-4 letter codes. [cite: 455] [cite_start]Example: McLaren MCL, Red Bull-RBR, Ferrari-FER, Mercedes MER, Alpine ALP, Aston Martin AMR, Williams WIL, Haas-HAS, Alfa Romeo ALF, AlphaTauri-APT. [cite: 456] (5) [cite_start]Add points_efficiency points / races as a pre-computed column for easy Tableau use. [cite: 457] (6) [cite_start]Ensure avg pit ms, total pit ms, fastest pit ms are stored as float rounded to 1 decimal place. [cite: 458] (7) [cite_start]Run final assertions: no duplicate resultIds, all binary flags are 0 or 1, no null circuitid, no null constructorld. [cite: 459] (8) Write final files to data/processed/. [cite_start]Print shape + dtypes of final master fact.csv. [cite: 460]
+
+[cite_start]**A6 - Fix Notebook 06: Track Strategy (Bonus)** [cite: 461]
+[cite_start]**Command to give the AI:** [cite: 462]
+> [cite_start]You are documenting and cleaning 06_track_strategy_analysis.ipynb for an F1 capstone project. [cite: 463] [cite_start]This is a BONUS notebook (beyond the required 5) that computes circuit-specific strategy recommendations. [cite: 464] [cite_start]Your tasks: (1) Add a top banner markdown cell labeling it clearly as BONUS NOTEBOOK Circuit Strategy Analysis. [cite: 465] (2) [cite_start]Ensure these 8 analyses are present and documented: Section 1 Compound Bias (lap time std / mean lap time per circuit). [cite: 466] [cite_start]Section 2 Optimal Stop Count (mode of stop count among top-10 finishers per circuit, 2010-2024). [cite: 467] [cite_start]Section 3 - Pit Window Estimation (10th-90th percentile lap range of first stop per circuit). [cite: 468] [cite_start]Section 4 - Qualifying Lock-In Score (Pearson r(grid, positionOrder) x 100 per circuit). [cite: 469] [cite_start]Section 5 - Grid Delta Distribution by Starting Band (P1-5, P6-10, P11-15, P16+). [cite: 470] [cite_start]Section 6 Circuit Archetype Radar Chart (all metrics normalized per cluster). [cite: 471] [cite_start]Section 7 Master Strategy Profile Table (all metrics in one DataFrame). [cite: 472] [cite_start]Section 8 Stint Compound Recommendation (inferred from compound bias + optimal stop count). [cite: 473] (3) [cite_start]The final export must be track strategy profiles.csv saved to data/processed/. [cite: 474] [cite_start]This file needs columns: circuit_name, country, lat, Ing, cluster_label, qualifying_lock_in_score, optimal_stop_count, compound bias, avg_grid_delta, stopl_p10_lap, stopl_p90_lap, stop2_p10_lap, stop2_p90_lap. [cite: 475] [cite_start]Print shape at the end. [cite: 476]
+
+[cite_start]**A7 - Generate data_dictionary.md (Complete Version)** [cite: 477]
+[cite_start]**Command to give the AI:** [cite: 478]
+> [cite_start]Generate a complete data_dictionary.md file for the F1 Race Strategy Intelligence capstone project. [cite: 479] Include entries for every column in master fact.csv. [cite_start]For columns that currently say 'TBD' in description, infer the correct description from context. [cite: 480] [cite_start]The columns that need proper descriptions are: number (car race number assigned to driver), grid (starting position, 1-pole, 0-pit lane start), position (final classified finishing position, null if DNF), positionText (text version of position e.g. '1', 'R' for retired), laps (number of laps completed), time (race duration for race winner only), milliseconds (total race duration in ms, null for DNFs), fastestLap (lap number on which fastest lap was set), rank (fastest lap ranking among all drivers), fastestLapTime (fastest lap time string e.g. 1:27.452), [cite: 481] [cite_start]fastestLapSpeed (fastest lap speed in km/h), statusid (FK to status table), round (race number within the season, 1 first race), circuitId (FK to circuits table), stop_count (number of pit stops made). [cite: 482] Format as a markdown table with columns: Column Name | Dtype | Description Example Value | [cite_start]Null Count. [cite: 483] Keep all existing null counts. [cite_start]Add a second table at the bottom for circuit strategy profile.csv columns. [cite: 484]
+
+[cite_start]**A8 - Generate README.md** [cite: 485]
+[cite_start]**Command to give the AI:** [cite: 486]
+> [cite_start]Write a professional README.md for a GitHub repository called Sec-A_g- 4 F1 Race Strategy_Intelligence. [cite: 487] [cite_start]This is a DVA Capstone 2 project at Newton School of Technology. [cite: 488] Content to include: (1) Project title and one-line description. (2) [cite_start]Problem Statement section: 'What strategic levers qualifying grid position, pit stop efficiency, and circuit type most strongly predict F1 championship points for a mid-field constructor, and how should a Race Strategist prioritize resources?' [cite: 489] (3) [cite_start]Team section: table of 7 members with roles (Project Lead: Mitul Bhatia, Data Lead: Ramani Dhruv Dineshbhai, ETL Lead: Vetriselvan R, Analysis Lead: Agrim Kumar Malhotra, Visualization Lead: Kushal Sarkar, Strategy Lead: Ritik Ranjan, PPT Lead: Palaparthi Harshakarthikeya). [cite: 490] (4) [cite_start]Tech Stack section: Python (pandas, numpy, statsmodels, sklearn, matplotlib, seaborn), Tableau Public, GitHub. [cite: 491] (5) Notebook Guide: table describing what each of the 6 notebooks does. [cite_start]Note notebook 06 as BONUS. [cite: 492] (6) [cite_start]Key Findings: 3-4 bullet points summarizing statistical findings (placeholders OK). [cite: 493] (7) [cite_start]How to Run: steps to clone repo, install requirements, run notebooks 01-05 in order. [cite: 494] (8) Tableau Dashboard: URL placeholder + screenshot thumbnails placeholder. (9) [cite_start]Data Source: Kaggle Ergast F1 Database link. [cite: 495]
+
+---
+
+## [cite_start]PART B - What YOU Do Manually (Tableau) [cite: 496, 497]
+Tableau cannot be automated. [cite_start]You must do these steps yourself in the Tableau Public desktop app. [cite: 498] [cite_start]Follow exactly in this order. [cite: 499]
+
+[cite_start]**Step 1 - Install and Open Tableau Public** [cite: 500, 501]
+* [cite_start]Download Tableau Public (free) from [public.tableau.com/en/software/public](https://public.tableau.com/en/software/public) [cite: 502]
+* [cite_start]Create a free account (use your email) [cite: 503]
+* [cite_start]Open the application on your laptop [cite: 504]
+
+[cite_start]**Step 2 - Connect Your Data** [cite: 505]
+1. [cite_start]Click 'Connect to Data' 'Text File' [cite: 506]
+2. [cite_start]Navigate to your project folder data/processed/ select master_fact.csv [cite: 507]
+3. Tableau will show a preview. Click 'Sheet 1' at the bottom to open a blank worksheet
+4. Go to Data menu → New Data Source → Text File → select circuit_strategy_profile.csv
+5. Go to Data menu → New Data Source → Text File select constructor_season_kpis.csv
+6. [cite_start]You now have 3 data sources. [cite: 508] [cite_start]You can switch between them in the Data pane on the left [cite: 509]
+
+[cite_start]**Step 3 - Set Geographic Roles (for World Map)** [cite: 510]
+7. Click on the circuit_strategy_profile data source in the Data pane
+8. [cite_start]Right-click the [Ing] field → Geographic Role Longitude [cite: 511]
+9. [cite_start]Right-click the [lat] field [cite: 512] [cite_start]Geographic Role → Latitude [cite: 513]
+10. [cite_start]Right-click [country] field [cite: 514] [cite_start]Geographic Role → Country/Region [cite: 515]
+
+[cite_start]**Step 4 - Create Calculated Fields (do this once, reuse everywhere)** [cite: 516]
+In any Sheet: Analysis menu → Create Calculated Field. [cite_start]Name and formula below: [cite: 517]
+
+| Field Name | Formula (type exactly as shown) |
+| :--- | :--- |
+| Points Efficiency | SUM([points]) / COUNTD ([raceld]) |
+| DNF Rate | SUM([is_dnf]) / COUNT([resultld]) |
+| Podium Rate | SUM([is_podium]) / COUNT([resultld]) |
+| Win Rate | SUM([is_win]) / COUNT([resultId]) |
+| Avg Pit Seconds | AVG([avg_pit_ms]) / 1000 |
+| Stop Count Bucket | IF [stop_count] >= 3 THEN '3-stop' ELSEIF [stop_count] = 2 THEN '2-stop' ELSE '1-stop' END |
+| Grid Delta Category | IF [grid_to_finish_delta] > 2 THEN 'Gained 3+' ELSEIF [grid_to_finish_delta] > 0 THEN 'Gained 1-2' ELSEIF [grid_to_finish_delta] = 0 THEN 'Held' ELSE 'Lost Positions' END |
+[cite_start]*(Table Data Source: [cite: 518])*
+
+[cite_start]**Step 5 - Build Dashboard 1: Constructor Intelligence** [cite: 519]
+[cite_start]Create 4 worksheets, then combine into 1 dashboard. [cite: 520]
+
+* [cite_start]**Worksheet 1A - Points Efficiency Trend** [cite: 521, 522]
+    * 11. New Sheet. [cite_start]Data source: master_fact.csv [cite: 523]
+    * 12. Drag [year] to Columns. [cite_start]Drag [Points Efficiency (your calculated field) to Rows [cite: 524]
+    * [cite_start]13. Drag [constructor_name] to Color on Marks card [cite: 525]
+    * [cite_start]14. Change chart type to 'Line' in Show Me panel [cite: 526]
+    * [cite_start]15. Filter: Right-click [year] → Filter [cite: 527] [cite_start]Range → set 2010 to 2024 [cite: 528]
+    * [cite_start]16. Edit title: 'Mid-Field Constructor Points Efficiency 2010-2024' [cite: 529]
+* [cite_start]**Worksheet 1B - DNF Rate Bar Chart** [cite: 530]
+    * 17. New Sheet. Drag [constructor_name] to Columns. [cite_start]Drag [DNF Rate] to Rows [cite: 531]
+    * [cite_start]18. Sort by DNF Rate descending (right-click axis → Sort) [cite: 532]
+    * [cite_start]19. Add Reference Line: Analytics pane drag Reference Line to entire table → set to AVG([DNF Rate]) [cite: 533]
+    * 20. Color encode: create a calculated field [High DNF] = [DNF Rate] > 0.15→ drag to Color
+    * [cite_start]21. Title: 'Constructors Losing Points to Reliability Issues' [cite: 534]
+* [cite_start]**Worksheet 1C - KPI BAN Cards** [cite: 535]
+    * 22. New Sheet. [cite_start]From Show Me, choose 'Text' [cite: 536]
+    * 23. Drag [Points Efficiency] to Text on Marks card. [cite_start]This creates a single large number [cite: 537]
+    * [cite_start]24. Duplicate this sheet 3 times for DNF Rate, Podium Rate, Win Rate [cite: 538]
+    * [cite_start]25. You will arrange these 4 text sheets side-by-side in the Dashboard [cite: 539]
+* [cite_start]**Assemble Dashboard 1** [cite: 540]
+    * [cite_start]26. New Dashboard (bottom tab area, click the + icon with grid symbol) [cite: 541]
+    * [cite_start]27. Set size: Fixed size 1200 x 700 pixels [cite: 542]
+    * [cite_start]28. Drag Worksheet 1C (BAN cards) to the top strip [cite: 543] [cite_start]resize to about 100px tall [cite: 544]
+    * [cite_start]29. Drag Worksheet 1A (trend line) to the left 60% of remaining space [cite: 545]
+    * [cite_start]30. Drag Worksheet 1B (DNF bar) to the right 40% [cite: 546]
+    * [cite_start]31. Add a text box at top: 'Constructor Championship Intelligence [cite: 547] [cite_start]Overview' [cite: 548] [cite_start]Season Performance [cite: 549]
+    * [cite_start]32. Add Filter: drag [constructor_name] to filter → Show Filter change to multi-select checklist [cite: 550]
+    * [cite_start]33. Add Filter: drag [year] to filter → Show Filter → change to Range slider [cite: 551]
+
+[cite_start]**Step 6 Build Dashboard 2: Pit Stop Analysis** [cite: 552]
+* [cite_start]**Worksheet 2A - Pit Duration vs Final Position Scatter** [cite: 553]
+    * 34. New Sheet. Drag [Avg Pit Seconds] to Columns. [cite_start]Drag AVG([position Order]) to Rows [cite: 554]
+    * 35. Drag [constructor_short] to Color. [cite_start]Drag [Stop Count Bucket] to Size [cite: 555]
+    * [cite_start]36. Analytics pane drag 'Trend Line' → Linear → Show by all [cite: 556]
+    * [cite_start]37. Title: 'Faster Pit Stops Correlate With Better Finishing Position' [cite: 557]
+* [cite_start]**Worksheet 2B - Stop Count Stacked Bar** [cite: 558]
+    * 38. New Sheet. Drag [constructor_name] to Rows. [cite_start]Drag COUNT([resultId]) to Columns [cite: 559]
+    * [cite_start]39. Drag [Stop Count Bucket] to Color [cite: 560]
+    * [cite_start]40. Filter: [position Order] <= 10 (top-10 finishers only) [cite: 561]
+    * 41. Change mark type to Bar. [cite_start]Stack Marks = On (default) [cite: 562]
+    * [cite_start]42. Title: 'How Top-10 Finishers Distributed Their Stop Strategies' [cite: 563]
+* [cite_start]**Assemble Dashboard 2** [cite: 564]
+    * 43. New Dashboard 1200x700. [cite_start]Place 2A on left (60%), 2B on right (40%) [cite: 565]
+    * [cite_start]44. Add filter: cluster_label, year range [cite: 566]
+
+[cite_start]**Step 7 - Build Dashboard 3: Race Craft (Grid Delta)** [cite: 567]
+* [cite_start]**Worksheet 3A - Grid vs Final Position Heatmap** [cite: 568]
+    * 45. New Sheet. Drag [grid] to Columns. [cite_start]Drag [positionOrder] to Rows [cite: 569]
+    * 46. Change to Square mark type. [cite_start]Drag COUNT([resultld]) to Color → set to Red-Blue diverging [cite: 570]
+    * [cite_start]47. This creates a matrix showing how often each grid-finish combination occurs [cite: 571]
+    * [cite_start]48. Title: 'Position 1-5 Qualifiers Rarely Lose More Than 2 Places' [cite: 572]
+* [cite_start]**Worksheet 3B - Grid Delta Box Plot by Constructor** [cite: 573]
+    * 49. New Sheet. Drag [constructor_short] to Columns. [cite_start]Drag [grid_to_finish_delta] to Rows [cite: 574]
+    * [cite_start]50. In Show Me, select 'Box-and-Whisker Plot' [cite: 575]
+    * [cite_start]51. Analytics pane drag Reference Line → Constant → Value: 0 [cite: 576]
+    * [cite_start]52. Title: 'Which Constructors Consistently Beat Their Grid Position' [cite: 577]
+* [cite_start]**Assemble Dashboard 3** [cite: 578]
+    * [cite_start]Dotted, Red [cite: 579]
+    * 53. Place 3A and 3B side by side. [cite_start]Add year range filter and constructor filter [cite: 580]
+
+[cite_start]**Step 8 - Build Dashboard 4: Circuit Intelligence (THE STAR DASHBOARD)** [cite: 581]
+[cite_start]Switch data source to circuit_strategy_profile.csv for all worksheets in this dashboard. [cite: 582]
+* [cite_start]**Worksheet 4A World Map** [cite: 583]
+    * 54. New Sheet. [cite_start]Make sure data source is circuit_strategy_profile [cite: 584]
+    * [cite_start]55. Drag [Ing] to Columns right-click [cite: 585] [cite_start]Dimension [cite: 586] Dimension (not measure). [cite_start]Drag [lat] to Rows [cite: 587]
+    * 56. Tableau shows a map automatically. [cite_start]If not: Show Me → Maps [cite: 588]
+    * [cite_start]57. Drag [circuit_name] to Detail (Marks card) ensures one dot per circuit [cite: 589]
+    * 58. Drag [cluster_label] to Color. [cite_start]Set: Qualifying-Dominant = Red (#E53935), Strategy-Dominant = [cite: 590] [cite_start]Green (#43A047), Mixed = Orange (#FB8C00) [cite: 591]
+    * [cite_start]59. Drag [qualifying_lock_in_score] to Size [cite: 592]
+    * 60. Edit Tooltip: click Tooltip on Marks card type: Circuit: <circuit_name> | [cite_start]Cluster: [cite: 593] <cluster_label> | Lock-In Score: <qualifying_lock_in_score> | [cite_start]Best Stop: <optimal_stop_count>- stop [cite: 594]
+    * [cite_start]61. Add Filter: drag [cluster_label] to Filters → Show Filter → Dropdown [cite: 595]
+    * [cite_start]62. Title: 'Circuit Strategy Archetypes - Where Does Qualifying vs Pit Strategy Win?' [cite: 596]
+* [cite_start]**Worksheet 4B Lock-In Score Bar Chart** [cite: 597, 598]
+    * 63. New Sheet. Drag [circuit_name] to Rows. [cite_start]Drag [qualifying_lock_in_score] to Columns [cite: 599]
+    * [cite_start]64. Sort by qualifying_lock_in_score descending [cite: 600]
+    * [cite_start]65. Drag [cluster_label] to Color (same colors as map) [cite: 601]
+    * [cite_start]66. Title: 'Monaco Has 89% Lock-In Score [cite: 602] [cite_start]Qualifying Is Everything There' [cite: 603]
+* [cite_start]**Worksheet 4C - Optimal Stop Count Bar** [cite: 604]
+    * 67. New Sheet. Drag [circuit_name] to Rows. Drag [optimal_stop_count] to Columns
+    * 68. Drag [optimal_stop_count] to Color → diverging blue-orange: 1=blue, 2= orange, 3=red
+    * [cite_start]69. Title: 'Strategy-Dominant Circuits Favour 2-Stop [cite: 605]
+* [cite_start]**Assemble Dashboard 4** [cite: 606]
+    * 70. New Dashboard 1400x800 (wider to fit map)
+    * [cite_start]71. Place map (4A) in the top 60% of the canvas [cite: 607]
+    * [cite_start]72. Place 4B (lock-in bar) in bottom-left 50% [cite: 608]
+    * [cite_start]73. Place 4C (stop count bar) in bottom-right 50% [cite: 609] [cite_start]Plan Your Tyre Stack Accordingly' [cite: 610]
+    * [cite_start]74. Make the cluster_label filter on 4A apply to ALL worksheets: right-click filter → Apply to [cite: 611] [cite_start]Worksheets → All Using This Data Source [cite: 612]
+    * [cite_start]75. Title the dashboard: 'Circuit Intelligence [cite: 613] [cite_start]Race Strategy by Track Archetype' [cite: 617]
+
+[cite_start]**Step 9 - Publish to Tableau Public** [cite: 614]
+* [cite_start]76. File Save to Tableau Public As... [cite: 615]
+* [cite_start]77. Sign in with your Tableau Public account [cite: 616]
+* [cite_start]78. Name the workbook: 'F1 Race Strategy Intelligence - NST DVA Capstone G4' [cite: 618]
+* 79. After saving, it opens in browser. [cite_start]Copy the URL from the address bar [cite: 619]
+* [cite_start]80. Paste this URL into: tableau/dashboard_links.md in your GitHub repo [cite: 620]
+* [cite_start]81. Also paste on: the cover page of your project report and Slide 7 of your PPT [cite: 621]
+
+[cite_start]**Step 10 - Take Screenshots for GitHub** [cite: 622]
+* 82. On each dashboard view: press Command+Shift+4 (Mac) or Win+Shift+S (Windows)
+* [cite_start]83. Capture full dashboard at 1920x1080 if possible [cite: 623]
+* [cite_start]84. Save as: dashboard1_executive.png, dashboard2_pitstop.png, dashboard3_racecraft.png, dashboard4_circuit.png [cite: 624]
+* [cite_start]85. Commit these 4 PNGs to: tableau/screenshots/ in your GitHub repo [cite: 625]
+
+---
+
+## [cite_start]PART C - Exact Order to Execute Everything [cite: 626, 627]
+
+| # | Task | Who / How | Output |
+| :--- | :--- | :--- | :--- |
+| 1 | Give AI prompts A1-A8 | Paste each prompt to AI agent. Review output. Commit to GitHub. | All 6 notebooks cleaned + README + data dict |
+| 2 | Run notebooks 01 -> 05 in order | In Jupyter/Colab: Kernel → Restart & Run All on each notebook. Check for errors. | data/processed/ populated with 4 CSVS |
+| 3 | Verify 4 output CSVs exist | Open each CSV in Excel/Sheets. Check: master_fact has ~27K rows, circuit_strategy_profile has ~78 rows. | CSVs validated |
+| 4 | Open Tableau Public →→ Connect 3 CSVS | YOU DO THIS. Follow Step 2 in Part B above. | Tableau workbook with 3 data sources |
+| 5 | Set geographic roles on lat/Ing | YOU DO THIS. Follow Step 3 in Part B. | Ready for world map |
+| 6 | Create all 7 calculated fields | YOU DO THIS. Follow Step 4 table exactly. | Fields appear in left Data pane |
+| 7 | Build all 4 dashboards | YOU DO THIS. Follow Steps 5-8. Takes ~3- 4 hours total. | 4 dashboards in Tableau workbook |
+| 8 | Publish + get URL | YOU DO THIS. Follow Step 9. Copy URL immediately. | Tableau Public URL |
+| 9 | Take 4 screenshots | YOU DO THIS. Follow Step 10. Commit to GitHub. | 4 PNGs in tableau/screenshots/ |
+| 10 | Write project report | PPT Lead writes the 17-section report. Use the Master Captain Doc Section 7 for the 5 recommendations. | project_report.pdf |
+| 11 | Build PPT (10 slides) | PPT Lead builds using the PPT Outline document. Slide 7 uses live Tableau demo. | presentation.pdf |
+| 12 | Final GitHub commit | All members: verify you have at least 3 commits and 1 PR. Check GitHub Insights tab. | Full repo ready for submission |
+[cite_start]*(Table Data Source: [cite: 628])*
+
+[cite_start]Tip: The Tableau world map (Dashboard 4, View A) is the most visually impressive part of your project. [cite: 629] Build it first when your brain is fresh. [cite_start]It takes about 45 minutes to set up correctly. [cite: 630] Once it's done, the other 3 dashboards are fast. [cite_start]Don't leave Dashboard 4 for last. [cite: 631]
+
+***
+
+# README 2: F1 Master Captain Doc
+
+[cite_start]**F1 Race Strategy Intelligence** [cite: 632]
+[cite_start]**DVA Capstone 2 - Section A, Group 4** [cite: 633]
+[cite_start]**Master Captain Document** [cite: 634]
+[cite_start]**Complete Project Bible** [cite: 635]
+
+| Team ID | Sector | Data Period |
+| :--- | :--- | :--- |
+| Section A - Group 4 | Sports Analytics / F1 Motorsport | 1950-2026 (Ergast DB) |
+[cite_start]*(Table Data Source: [cite: 636])*
+
+---
+
+## [cite_start]1. What Are We Actually Building? [cite: 637]
+[cite_start]This project is a data-driven race strategy intelligence system for a mid-field Formula 1 constructor team finishing 4th-7th in the Constructors' Championship. [cite: 639] [cite_start]The deliverable is a Tableau dashboard that a Race Strategist can consult before and during a Grand Prix weekend to make decisions that are historically backed by data. [cite: 640]
+
+[cite_start]**The Decision-Maker** [cite: 641]
+[cite_start]A Performance Analyst / Race Strategist at a mid-field F1 constructor. [cite: 642] [cite_start]This person cannot change the car's raw pace mid-season, but they CAN control: [cite: 643]
+* [cite_start]When to pit (lap number) [cite: 644]
+* [cite_start]How many times to pit (1-stop vs 2-stop vs 3-stop) [cite: 645]
+* [cite_start]Which circuit categories to be aggressive vs conservative on [cite: 646]
+* [cite_start]Where to invest limited training budget: pit crew vs qualifying setup [cite: 647]
+
+[cite_start]**The Core Business Question** [cite: 648]
+[cite_start]"What is the relative impact of qualifying grid position, pit stop strategy (duration + count), and circuit type on race outcome and Constructors' Championship points - and which strategic levers should a mid-field constructor prioritize to maximize season points?" [cite: 649]
+
+[cite_start]**The Three Strategic Levers We Are Analyzing** [cite: 650]
+| Lever | What It Measures | Is It Controllable? |
+| :--- | :--- | :--- |
+| Qualifying Position | Grid position = car pace + setup. Measured as grid vs pole gap (ms). | Partially teams can choose qualifying setup priorities |
+| Pit Stop Strategy | Stop count (1/2/3) + stop duration (ms). Pure team execution. | YES 100% controllable by the pit wall + crew training |
+| Circuit Type | Overtaking difficulty + tyre wear proxy. 3 archetypes via K-Means. | NO fixed. But strategy choice per circuit is fully adjustable |
+[cite_start]*(Table Data Source: [cite: 651])*
+
+[cite_start]**What the Final Output Looks Like** [cite: 652]
+* [cite_start]A Tableau dashboard (4 views) published on Tableau Public [cite: 653]
+* [cite_start]A 10-15 page project report PDF [cite: 654]
+* [cite_start]A 10-12 slide presentation PPT [cite: 655]
+* [cite_start]5 Python notebooks committed to GitHub (notebooks 01-05) [cite: 656]
+* [cite_start]Notebook 06 (Track Strategy) is a BONUS notebook it feeds the circuit dashboard but is [cite: 657] [cite_start]NOT one of the required 5 rubric notebooks [cite: 658]
+
+---
+
+## [cite_start]2. KPI & Metric Framework (All 8 KPIs) [cite: 659]
+Every KPI below is computed in Python and visualized in Tableau. [cite_start]Each is tied directly to the business question. [cite: 660] [cite_start]The rubric awards marks for KPIs that link to decisions not just charts. [cite: 661]
+
+[cite_start]**TIER 1 Strategic KPIs (What the Team Principal Sees)** [cite: 662]
+| KPI Name | Formula | Notebook | Decision Enabled |
+| :--- | :--- | :--- | :--- |
+| Points Efficiency Rate | SUM(points) / COUNT(race_starts) per constructor per season | 03 eda + 05_final_load_prep | Budget allocation: are we improving per-race output? |
+| Win/Podium Conversion Rate | COUNT(podiums) / COUNT(races) per constructor | 03 eda | High-risk vs safe strategy: gamble for P3 or play it safe? |
+| DNF Rate (Reliability) | COUNT(mechanical DNFs) / COUNT(starts) | 02_cleaning + 03_eda | Engine mode decisions: push for pace vs preserve reliability |
+[cite_start]*(Table Data Source: [cite: 663])*
+
+[cite_start]**TIER 2 Operational KPIs (What the Strategy Director Uses)** [cite: 664]
+| KPI Name | Formula | Notebook | Decision Enabled |
+| :--- | :--- | :--- | :--- |
+| Gridto--Finish Delta ★ | grid_position positionOrder per race. Positive = positions gained | 02_cleaning (derived col) | Is our race strategy making the car look better or worse than qualifying pace? |
+| Pit Stop Efficiency Score | AVG(pit_stop_duration_ms) per constructor per season | 02_cleaning + 04_stats | Pit crew training investment vs marginal aero gains |
+| Qualifying Gap to Pole | best_q_ms pole_q_ms in milliseconds per driver per race | 02_cleaning (derived) | Car setup: optimize for 1-lap pace vs race tyre management? |
+[cite_start]*(Table Data Source: [cite: 665])*
+
+[cite_start]**TIER 3 Tactical KPIs (What the Race Engineer Uses per Circuit)** [cite: 667]
+| KPI Name | Formula | Notebook | Decision Enabled |
+| :--- | :--- | :--- | :--- |
+| Qualifying Lock-In Score | Pearson r(grid, positionOrder) per circuit x 100.0=open, 100=locked | 04_stats + 06_track | Monaco = 85+, Monza = ~40. Drives qualifying vs race setup priority |
+| Optimal Stop Count | Mode of stop_count among top-10 finishers at each circuit (2010-2024) | 04 stats + 06 track | Race day stint planning: start on Hards for 1-stop or Softs to attack? |
+| Compound Bias (Deg Proxy) | lap_time_std/ mean_lap_time per circuit. High = high degradation | 06_track (bonus) | Tyre selection request to Pirelli for the weekend |
+[cite_start]*(Table Data Source: [cite: 666])*
+
+★ Grid-to-Finish Delta is the HERO metric of this entire project. [cite_start]It isolates race strategy from car pace. [cite: 668] [cite_start]When you present to faculty, every recommendation comes back to this number. [cite: 669]
+
+---
+
+## [cite_start]3. Notebook Structure - What Goes Where [cite: 670]
+The rubric requires exactly 5 notebooks (01-05). [cite_start]Notebook 06 is a BONUS notebook that houses the detailed circuit analysis. [cite: 671] [cite_start]Here is what each notebook must contain and what it must output. [cite: 672]
+
+| Notebook | Owner Role | What It Does | Output Files |
+| :--- | :--- | :--- | :--- |
+| 01_extraction | ETL Lead | Load all 14 raw Ergast CSVs using dtype=str (preserves \N nulls). No transformations. | data/raw/*.csv (14 files, never edited) |
+| 02_cleaning | ETL Lead | Replace \N→ pd.NA. Parse qualifying times (1:26.572) to ms. Map statusld to DNF categories. Derive grid to finish_delta, is_dnf, is_podium, is_win, is_pole. | master_fact.csv, constructor_season_kpis.csv, circuit_strategy_profile.csv |
+| 03_eda | Analysis Lead | Visualize all 8 KPIs. Grid delta distribution per constructor. DNF rate over time. Points efficiency trend. Pit duration histogram. Use insight-driven chart titles. NO generic labels. | PNG charts saved to reports/figures/. No new CSVs. |
+| 04_statistical_analysis | Analysis Lead | OLS Regression: points grid + stop_count + avg_pit_ms. Hypothesis test: faster pit stops → higher grid delta? K-Means (K=3) circuit clustering → Qualifying-Dominant / Strategy-Dominant / Mixed. Pearson r by cluster. Stop count by cluster. | circuit_strategy_profile.csv (updated with cluster_label). Stats summary printed. |
+| 05_final_load_prep | ETL Lead + Viz Lead | Format all CSVs for Tableau. Boolean → 0/1 integers. Fill NaN grid with 0. Add driver_name_display (Surname, Forename). Add constructor_short codes. Final schema assertions. Write to data/processed/. | data/processed/master_fact.csv, constructor_season_kpis.csv, circuit_strategy_profile.csv, track_strategy_profiles.csv |
+| 06_track_strategy (BONUS) | Strategy Lead | BONUS not in rubric. Circuit-specific: compound bias (degradation proxy), optimal stop count per track, pit window estimation (10th- 90th percentile lap range), qualifying lock-in score, grid delta by starting band, strategy radar per archetype. | track_strategy_profiles.csv consumed by Tableau Circuit Dashboard |
+[cite_start]*(Table Data Source: [cite: 673, 674])*
+
+[cite_start]**The 'Extra' Notebook Problem** [cite: 675]
+You have 6 notebooks. The rubric grades 5 (01-05). [cite_start]Notebook 06 is extra. [cite: 676] [cite_start]Do NOT delete it - it contains your best circuit analysis. [cite: 677] [cite_start]Instead, keep it as-is but label it clearly in the README as 'Bonus Analysis'. [cite: 678] [cite_start]When the mentor looks at your GitHub, 6 notebooks is BETTER than 5 if they're all clean. [cite: 679] [cite_start]The real cleanup task: notebooks 03-06 likely have messy, duplicated, or poorly structured cells. [cite: 680] [cite_start]The AI agent should clean the logic, add markdown headers, and make sure each notebook has a clean Section 0 (imports/config) and a clean final summary cell. [cite: 681]
+
+---
+
+## [cite_start]4. Circuit Analysis [cite: 682]
+[cite_start]**The Core Deliverable** [cite: 683]
+This is what makes this project stand out. [cite_start]The circuit analysis answers one question per circuit: WHAT STRATEGY SHOULD WE USE HERE? [cite: 684] [cite_start]Here is exactly what we compute and show. [cite: 685]
+
+[cite_start]**The 3 Circuit Archetypes (K-Means Output)** [cite: 686]
+| Archetype | Qualifying Lock-In | Typical Examples | Strategy Implication |
+| :--- | :--- | :--- | :--- |
+| Qualifying-Dominant | High r (>0.7). Grid order barely changes. | Monaco, Hungary, Singapore | MUST qualify well. 1-stop safe strategy. Undercut almost never works. |
+| Strategy-Dominant | Low r (<0.5). Lots of position changes. | Monza, Bahrain, Spa | Grid less important. 2-stop aggressive. Undercut opportunity HIGH. |
+| Mixed | Mid r (0.5-0.7). Some chaos possible. | Most other circuits | Read the race. 1 or 2 stop depending on safety car likelihood. |
+[cite_start]*(Table Data Source: [cite: 687])*
+
+**Per-Circuit Data Points Computed (from Notebook 06)**
+[cite_start]For each of the 78 circuits in the dataset, the track_strategy_profiles.csv contains: [cite: 688]
+
+| Column Name | How Computed | Used In Tableau |
+| :--- | :--- | :--- |
+| circuit_name | From circuits.csv dim table | Filter + tooltip |
+| cluster label | K=3 in notebook 04 K-Means | Color encoding on all circuit views |
+| qualifying_lock_in_score | Pearson r(grid, positionOrder) x 100 | Bar chart + world map color |
+| optimal_stop_count | Mode of stop_count for top-10 finishers | Strategy card + bar chart |
+| compound bias | lap time std/mean lap time | Color: red soft, blue hard bias |
+| avg_grid_delta | AVG(grid_to_finish_delta) per circuit | Bar chart in circuit dashboard |
+| stop1_p10_lap / stop1_p90_lap | 10th-90th percentile of first stop lap | Pit window viz in circuit dashboard |
+| country / lat/Ing | From circuits.csv join | Tableau world map |
+[cite_start]*(Table Data Source: [cite: 689])*
+
+---
+
+## 5. Tableau Dashboard Implementation - Complete Spec
+Build 4 dashboards. [cite_start]Connect to 3 CSV files from data/processed/. [cite: 690] [cite_start]Here is everything what data to use, what filters to add, and how to connect it to the report. [cite: 691, 692]
+
+[cite_start]**Files to Connect in Tableau** [cite: 693]
+| File | Rows (approx) | Used In |
+| :--- | :--- | :--- |
+| master_fact.csv | ~27,000 rows | Dashboards 1, 2, 3 |
+| constructor_season_kpis.csv | ~200-300 rows | Dashboard 1 (constructor trend) |
+| circuit_strategy_profile.csv | ~78 rows | Dashboard 4 (circuit intel) |
+| track strategy profiles.csv | ~78 rows | Dashboard 4 (bonus detail) |
+[cite_start]*(Table Data Source: [cite: 694])*
+
+[cite_start]**How to Connect in Tableau** [cite: 695]
+* [cite_start]Open Tableau Public Connect → Text File → select master_fact.csv [cite: 696]
+* [cite_start]Add second data source: Data → New Data Source circuit_strategy_profile.csv [cite: 697]
+* [cite_start]In Sheet view, if you need to blend: Data → Edit Blend Relationships link on circuitld [cite: 698]
+* [cite_start]DO NOT use Tableau's 'Join' on a relationship unless both CSVs share the same grain (row = race entry) [cite: 699]
+* [cite_start]For the world map dashboard: master_fact has lat/Ing columns already - just drag them to Row/Column shelf and Tableau auto-detects as geographic [cite: 700]
+
+[cite_start]**Dashboard 1 - Constructor Championship Intelligence (Executive View)** [cite: 701, 702]
+WHO: Team Principal. QUESTION: How is our constructor performing over time vs rivals? [cite_start]FILTER: Constructor multi-select, Year range slider. [cite: 703]
+[cite_start]**Views to Build:** [cite: 704]
+* View A Points Efficiency Trend Line: x = Year, Y=AVG(points)/COUNT (races). Color by constructor_name. [cite_start]Filter: 2010-2024 only. [cite: 705] [cite_start]Insight title: 'Mid-field Constructor Points Efficiency Converging Since 2014 Hybrid Era' [cite: 706]
+* View BDNF Rate Bar Chart: X=constructor_name, Y=SUM(is_dnf)/COUNT(*). Sort descending. [cite_start]Color: red if DNF rate > 15%, green otherwise. [cite: 707] Filter by era dropdown.
+* View C- Win Conversion Scatter: X=AVG(qualifying_gap_ms), Y=SUM(is~win)/COUNT(*). [cite_start]Size = total points. [cite: 708] [cite_start]Tooltip: constructor, year, win rate. [cite: 709]
+* [cite_start]View D- KPI Summary Cards (top of dashboard): 4 BAN marks showing season totals for selected constructor: Total Points, Points Efficiency, DNF Rate, Podium Rate [cite: 710]
+[cite_start]**Calculated Fields to Create in Tableau:** [cite: 711]
+* [cite_start][Points Efficiency] = SUM([points]) / COUNTD([raceld]) [cite: 712]
+* [cite_start][DNF Rate] = SUM([is_dnf]) / COUNT([resultId]) [cite: 713]
+* [cite_start][Podium Rate] = SUM([is_podium]) / COUNT([resultld]) [cite: 714]
+* [cite_start][Win Rate] = SUM([is_win]) / COUNT([resultId]) [cite: 715]
+
+[cite_start]**Dashboard 2 - Pit Stop Strategy Analysis (Operational View)** [cite: 716]
+WHO: Strategy Director. [cite_start]QUESTION: Does pit stop speed actually translate to better race outcomes? [cite: 717] [cite_start]FILTER: Year range, Constructor, Circuit archetype (cluster_label). [cite: 718]
+[cite_start]**Views to Build:** [cite: 719]
+* View A - Pit Duration vs Final Position Scatter: X=AVG(avg_pit_ms), Y=AVG(positionOrder). Color by constructor_short. Size by stop_count. [cite_start]TREND LINE on. [cite: 720] [cite_start]Insight: 'Faster Pit Stops Correlate With Better Final Position (r≈-0.4)' [cite: 721]
+* View B Stop Count Distribution Stacked Bar: X=constructor_name, Y=COUNT (races). Color by stop_count (1, 2, 3+). [cite_start]Filter: top-10 finishers only. [cite: 722] [cite_start]This shows which teams favour which strategy. [cite: 723]
+* View C- Pit Duration Improvement Over Time: X=Year, Y=AVG(fastest_pit_ms). One line per constructor. [cite_start]Shows operational improvement trajectory. [cite: 724]
+* [cite_start]View D- Hypothesis Test Result Text Box: Static text from your notebook 04 result - 'Teams with pit times below seasonal median gained +0.X positions per race more than slower teams (p < 0.05)' [cite: 725]
+[cite_start]**Calculated Fields:** [cite: 726]
+* [cite_start]• [Avg Pit Seconds] = AVG([avg_pit_ms]) / 1000 [cite: 727] [cite_start]convert to seconds for readability [cite: 728]
+* [cite_start][Stop Count Bucket] = IF [stop_count] >= 3 THEN '3+' ELSEIF [stop_count] = 2 THEN '2-stop' ELSE '1-stop' END [cite: 729]
+
+[cite_start]**Dashboard 3 - Race Craft Analysis (Grid Delta View)** [cite: 730]
+WHO: Race Strategist. QUESTION: Which constructors and drivers consistently out-perform their grid position? [cite_start]FILTER: Constructor, Year, Era. [cite: 731]
+[cite_start]**Views to Build:** [cite: 732]
+* View A-Grid Delta Box Plot by Constructor: X=constructor_short, Y= grid_to_finish_delta. [cite_start]Use a box plot (Show Me panel). [cite: 733] Positive = gained positions. Horizontal reference line at Y=0
+* [cite_start]View B-Grid vs Final Position Heatmap: X= grid (1-20), Y= positionOrder (1-20). [cite: 734] Color intensity = COUNT of races at that (grid, finish) cell. [cite_start]This visually shows how locked-in different grid spots are. [cite: 735]
+* [cite_start]View C- Top 20 Position-Gaining Drivers Horizontal Bar: X=AVG(grid_to_finish_delta), filtered to drivers with >50 race starts. [cite: 736] [cite_start]This is a talking point - 'Alonso and Vettel gained positions more consistently than grid suggests' [cite: 737]
+* [cite_start]View D- Era Comparison: AVG grid delta split by era (V10/V8 vs Turbo Hybrid). [cite: 738] [cite_start]Shows if modern era is more or less overtaking-friendly. [cite: 739]
+[cite_start]**Calculated Fields:** [cite: 740]
+* [cite_start][Grid Delta Category] = IF [grid_to_finish_delta] > 2 THEN 'Gained 3+' ELSEIF [cite: 741] [cite_start][grid_to_finish_delta] > 0 THEN 'Gained 1-2' ELSEIF [grid_to_finish_delta] = 0 THEN 'Held' ELSE 'Lost Positions' END [cite: 742]
+
+[cite_start]**Dashboard 4 - Circuit Intelligence (Tactical View)** [cite: 743]
+WHO: Race Engineer preparing for a specific Grand Prix. [cite_start]QUESTION: For THIS circuit, what strategy has historically worked? [cite: 744] This is the star dashboard - the most unique and actionable. [cite_start]DATA SOURCE: circuit_strategy_profile.csv / track_strategy_profiles.csv. [cite: 745]
+[cite_start]**Views to Build:** [cite: 746]
+* View A World Map of Circuits: Drag [Lng] to Columns, [Lat] to Rows. [cite_start]Tableau auto-generates map. [cite: 747] Color by [cluster_label] (Red=Qualifying-Dominant, Green Strategy-Dominant, Yellow Mixed). Size by [qualifying_lock_in_score]. [cite_start]FILTER: Cluster dropdown. [cite: 748]
+* View B Qualifying Lock-In Score Bar Chart: x= circuit_name, Y= qualifying_lock_in_score. Sort descending. [cite_start]Color by cluster. [cite: 749] This instantly shows where qualifying matters most.
+* View C-Optimal Stop Count per Circuit: X= circuit_name, Y= optimal_stop_count. [cite_start]Bar chart. [cite: 750] Color: blue 1-stop, orange=2-stop, red 3-stop. Filter: by cluster_label. [cite_start]Insight: 'Strategy- Dominant circuits favour 2-stop 68% of the time' [cite: 751, 752]
+* View D Compound Bias Scatter (Degradation Proxy): x= compound_bias, Y= avg_grid_delta. Color by cluster. [cite_start]Tooltip: circuit name, optimal stop, cluster. [cite: 753] [cite_start]This links tyre wear to position changes. [cite: 754]
+[cite_start]**How to Build the World Map in Tableau (Step by Step):** [cite: 755]
+1. [cite_start]Connect to circuit_strategy_profile.csv as a data source [cite: 756]
+2. Right-click the [Ing] column → Geographic Role Longitude. [cite_start]Do same for [lat] → Latitude [cite: 757]
+3. Drag [lng] to Columns shelf, [lat] to Rows shelf. [cite_start]Tableau automatically switches to Map view [cite: 758]
+4. [cite_start]Drag [circuit_name] to Detail on Marks card (ensures one dot per circuit) [cite: 759]
+5. Drag [cluster_label] to Color on Marks card. [cite_start]Set custom colors: Qualifying-Dominant=Red, Strategy-Dominant Green, Mixed=Orange [cite: 760]
+6. [cite_start]Drag [qualifying_lock_in_score] to Size on Marks card [cite: 761]
+7. [cite_start]Add tooltip: Edit Tooltip include circuit_name, cluster_label, optimal_stop_count, qualifying_lock_in_score [cite: 762]
+8. [cite_start]Add a filter: drag [cluster_label] to Filters shelf Show Filter change to dropdown [cite: 763]
+
+---
+
+## 6. How to Attach Tableau to the Main Report & GitHub
+**Step 1 — Publish to Tableau Public**
+• File → Save to Tableau Public → Sign in with your free account
+• Give it a clear name: 'F1 Race Strategy Intelligence — NST DVA Capstone'
+• After publishing, copy the URL (looks like: [public.tableau.com/app/profile/xxx/viz/F1RaceStrategy/](https://public.tableau.com/app/profile/xxx/viz/F1RaceStrategy/)...)
+
+**Step 2 — Dashboard Screenshots for GitHub**
+• Take screenshot of each of the 4 dashboards (PNG, 1920×1080 minimum)
+• Save as: dashboard1_executive.png, dashboard2_pitstop.png, dashboard3_racecraft.png, dashboard4_circuit.png
+[cite_start]• Commit to: tableau/screenshots/ in your GitHub repo [cite: 764]
+
+**Step 3 — dashboard_links.md File**
+Create this file at tableau/dashboard_links.md and commit it:
+# [cite_start]Tableau Dashboard Links ## Main Dashboard URL: [https://public.tableau.com/app/profile/YOUR_PROFILE/viz/F1RaceStrategy](https://public.tableau.com/app/profile/YOUR_PROFILE/viz/F1RaceStrategy) ## Individual Views - Dashboard 1 (Executive): [https://www.merriam-webster.com/dictionary/above](https://www.merriam-webster.com/dictionary/above) → Tab 'Constructor Intelligence' - Dashboard 2 (Pit Stop): [https://www.merriam-webster.com/dictionary/above](https://www.merriam-webster.com/dictionary/above) → Tab 'Pit Strategy' - Dashboard 3 (Race Craft): [https://www.merriam-webster.com/dictionary/above](https://www.merriam-webster.com/dictionary/above) → Tab 'Grid Delta' - Dashboard 4 (Circuit): [https://www.merriam-webster.com/dictionary/above](https://www.merriam-webster.com/dictionary/above) → Tab 'Circuit Intel' [cite: 765]
+
+**Step 4 — Embed in the Final Report PDF**
+[cite_start]• In the Project Report (Section 10: Tableau Dashboard Design), paste screenshots of each of the 4 dashboards [cite: 765, 766]
+• Under each screenshot: write 3–4 sentences describing what business question it answers and what the key insight is
+• Include the Tableau Public URL in the report as a clickable hyperlink (in the cover page and Section 10)
+• The report evaluator WILL click the URL — make sure it is published publicly
+
+**Step 5 — PPT Slide 7 (Dashboard Walkthrough)**
+• Show live Tableau during presentation — open the public URL in browser
+[cite_start]• Navigate from Dashboard 1 → 4 in order: start with Executive View [cite: 766, 767] (CEO perspective), end with Circuit Intel (the tactical payoff)
+• Demonstrate at least ONE interactive filter in action: select a constructor or cluster and show how all charts update
+[cite_start]• Put the Tableau URL as a clickable text at the bottom of Slide 7 [cite: 767]
+
+---
+
+## 7. The 5 Business Recommendations (Insight → Action → Impact)
+[cite_start]These are the 5 data-backed recommendations your project delivers. [cite: 768] [cite_start]Each maps to a statistical finding from notebooks 03–04. [cite: 769] [cite_start]These must appear in the report (Section 12), the PPT (Slide 8), and be referenced in Tableau tooltips. [cite: 770]
+
+| # | Statistical Finding (Insight) | Recommendation (Action) | Expected Impact |
+| :--- | :--- | :--- | :--- |
+| R1 | OLS regression: grid position is the strongest single points predictor (β ≈ -0.6 standardised). At Qualifying Dominant circuits (Monaco, Hungary), r > 0.8. | Prioritize qualifying setup at Qualifying-Dominant circuits. Run aggressive fuel-light setup even at reliability cost. | 1 extra grid position at Monaco = +0.3 expected points over a season (18+ such circuits exist) |
+| R2 | Hypothesis test: constructors with pit times in the bottom 50% of seasonal median gained +0.X more positions per race vs slower teams (p < 0.05). | Invest in pit crew training hardware (pneumatic wheel guns, jack upgrades) before spending on marginal aero tunnel time. | Saving 0.5 seconds per stop across 2 stops per race = 1.0 second track position gain = ~1 position at mid-speed tracks |
+| R3 | K-Means clustering: Strategy Dominant circuits (Monza, Bahrain, Spa) show r(grid, finish) < 0.5. 2-stop strategy delivers better avg finish than 1-stop at these circuits. | For the 6–8 Strategy Dominant races per season: deploy aggressive 2-stop undercut. Do NOT default to conservative 1-stop. | If mid-field car gains 2 extra positions at 7 Strategy Dominant races = 14 extra positions × avg 2 pts = ~28 extra points per season |
+| R4 | DNF analysis: mechanical DNFs account for X% of total points lost. Team reliability is a hidden points killer, especially in the hybrid era. | Implement conservative 'engine mode 2' during the first 15 laps of Strategy Dominant races to protect engine life. Attack only when strategy calls for it. | Reducing DNF rate by 2 races/season (1 position per race recovered) = 10–18 extra points depending on circuit |
+| R5 | Grid-to-Finish Delta: mid-field constructors show a mean delta of +0.X (gaining positions) but high variance — inconsistent execution. | Build a circuit-specific pre race briefing protocol using the Circuit Intelligence Dashboard (Dashboard 4). Tailor race strategy per cluster, not a generic default. | Reducing strategy variance = more consistent top-8 finishes = constructor prize money stability (each position in top 10 pays ~$5M+ difference) |
+[cite_start]*(Table Data Source: [cite: 771, 772, 773, 774, 775, 776, 777, 778, 779, 780, 781, 782, 783, 784])*
+
+---
+
+## 8. Data Quality Notes & Known Limitations
+
+| Issue | How We Handle It | Limitation to Mention in Report |
+| :--- | :--- | :--- |
+| \N nulls throughout Ergast CSVs | Load with dtype=str → replace \N with pd.NA → cast columns after | None — fully handled |
+| Pit stop data sparse before 2010 | All pit stop + qualifying analysis scoped to 2010–2024 only | Historical comparison pre-2010 not pit adjusted |
+| 10,953 DNFs with no position | positionOrder used (always assigned 1–max). is_dnf flag handles classification. | DNF finishing order classification may vary from official records |
+| No tyre compound data in Ergast | Use lap_time_std as compound bias proxy (degradation heuristic) | Compound analysis is inferred, not sourced from actual Pirelli data |
+| Qualifying null rate >60% for Q2/Q3 | Use best_q_ms (best qualifying time across any session). qualifying_gap_ms = best_q - pole. | Q2/Q3 analysis only reliable for 2005+ when modern qualifying format started |
+[cite_start]*(Table Data Source: [cite: 785, 786, 787])*
+
+---
+
+## 9. GitHub Repository Structure
+[cite_start]Your GitHub repo must be public. [cite: 788] [cite_start]The URL is: [https://github.com/mitul-bhatia/Sec-A_g](https://github.com/mitul-bhatia/Sec-A_g) 4_F1_Race_Strategy_Intelligence [cite: 789]
+
+Sec-A_g-4_F1_Race_Strategy_Intelligence/
+├── README.md
+├── data/
+│ ├── raw/ ← 14 original Ergast CSVs (never edited)
+│ └── processed/ ← master_fact.csv, constructor_season_kpis.csv,
+│ circuit_strategy_profile.csv, track_strategy_profiles.csv
+├── notebooks/
+│ ├── 01_extraction.ipynb
+│ ├── 02_cleaning.ipynb
+│ ├── 03_eda.ipynb
+│ ├── 04_statistical_analysis.ipynb
+│ ├── 05_final_load_prep.ipynb
+│ └── 06_track_strategy_analysis.ipynb ← BONUS (label clearly)
+├── tableau/
+│ ├── screenshots/
+│ │ ├── dashboard1_executive.png
+│ │ ├── dashboard2_pitstop.png
+│ │ ├── dashboard3_racecraft.png
+│ │ └── dashboard4_circuit.png
+│ └── dashboard_links.md
+├── reports/
+│ ├── project_report.pdf
+│ └── presentation.pdf
+└── docs/
+├── data_dictionary.md
+[cite_start]└── kpi_metric_framework.md [cite: 789, 790]
+
+## 10. Quick Reference Checklist
+
+| Task | Who | Status |
+| :--- | :--- | :--- |
+| Clean + restructure all 6 notebooks with proper section headers | ETL Lead + Analysis Lead | [ ] To Do |
+| Run notebooks 01→05 in order, ensure all output CSVs generate | ETL Lead | [ ] To Do |
+| Verify track_strategy_profiles.csv exports correctly from notebook 06 | Strategy Lead | [ ] To Do |
+| Connect 3 CSVs to Tableau Public | Viz Lead | [ ] To Do |
+| Build Dashboard 1: Constructor Intelligence (4 views) | Viz Lead | [ ] To Do |
+| Build Dashboard 2: Pit Stop Analysis (4 views) | Viz Lead | [ ] To Do |
+| Build Dashboard 3: Race Craft / Grid Delta (4 views) | Viz Lead | [ ] To Do |
+| Build Dashboard 4: Circuit Intelligence World Map (4 views) | Viz Lead | [ ] To Do |
+| Publish to Tableau Public, copy URL | Viz Lead | [ ] To Do |
+| Take 4 dashboard screenshots → commit to tableau/screenshots/ | Viz Lead | [ ] To Do |
+| Write dashboard_links.md and commit | Viz Lead | [ ] To Do |
+| Write final project report (10–15 pages, 17 sections) | PPT & Quality Lead | [ ] To Do |
+| Build 10-slide PPT with live Tableau demo on Slide 7 | PPT & Quality Lead | [ ] To Do |
+[cite_start]*(Table Data Source: [cite: 790, 791, 792])*

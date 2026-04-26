@@ -1,66 +1,164 @@
-# Project Worklog — F1 Race Strategy Intelligence
+# F1 Race Strategy Intelligence - Work Log
 
 ## Project Overview
-- **Goal:** Determine strategic levers (qualifying, pit stops, circuit type) that predict championship points for mid-field F1 constructors.
-- **Decision-Maker:** Performance Analyst at a mid-field F1 constructor (4th–7th in ranking).
-- **Final Output:** Tableau Dashboard and Capstone Report.
+DVA Capstone 2 - Section A, Group 4
+Newton School of Technology
+
+**Goal**: Create a data-driven race strategy intelligence system for mid-field F1 constructors with Tableau dashboards.
 
 ---
 
-## Data Pipeline & Transformation Log
+## Session 1: Initial Assessment and Planning
 
-### [01] Extraction (`01_extraction.ipynb`)
-- **Action:** Extracted 14 raw CSV files from Ergast F1 database.
-- **Optimization:** Loaded all files with `dtype=str` to prevent the truncation of literal `\N` strings (Ergast's null convention).
-- **Artifacts:** `results.csv`, `lap_times.csv`, `pit_stops.csv`, `qualifying.csv`, `races.csv`, `circuits.csv`, `drivers.csv`, `constructors.csv`, `status.csv`, `constructor_standings.csv`, `driver_standings.csv`, `constructor_results.csv`, `sprint_results.csv`, `seasons.csv`.
+### Date: [Current Session]
 
-### [02] Cleaning & Transformation (`02_cleaning.ipynb`)
-- **Action:** Structured the raw fact and dimension tables into the finalized analysis schema.
-- **Key Transformations:**
-    - **Null Handling:** Replaced literal `\N` with `pd.NA`.
-    - **DNF Mapping:** Categorized `statusId` into `Finished`, `Accident`, `Mechanical`, `DNQ`, and `Other` using a custom mapping.
-    - **KPI Definition:** Derived `grid_to_finish_delta` (Grid - PositionOrder).
-    - **Circuit Profiling:** Aggregated historical race data (all 78 circuits) to calculate average position gains and degradation indicators.
-    - **Scoping:** Filtered pit stop and qualifying performance analysis to 2010–2024 for data density.
-- **Outputs:** 
-    - `master_fact.csv` (Primary Fact Table)
-    - `constructor_season_kpis.csv` (Team KPIs)
-    - `circuit_strategy_profile.csv` (Circuit Dimensions)
+#### 1. Requirements Analysis Completed
+- ✅ Read complete F1 Action Plan document
+- ✅ Read complete F1 Master Captain Doc
+- ✅ Analyzed current notebook structure (01-06)
+- ✅ Identified data outputs needed for Tableau
 
-### [03] Exploratory Data Analysis (`03_eda.ipynb`)
-- **Action:** Visualized key strategic levers and verified distributions.
-- **Insight focus:** Moved from generic labels to insight-driven titles (e.g., "Win Conversion from Pole significantly higher for Top 3 constructors").
+#### 2. Current State Assessment
 
-### [04] Statistical Analysis (`04_statistical_analysis.ipynb`)
-- **Action:** Performed regression, hypothesis testing, and clustering.
-- **Key Transformations:**
-    - **OLS Regression:** Modeled `points` against `grid`, `pit_stop_count`, and `avg_pit_ms`.
-    - **K-Means Clustering:** Segmented circuits into 3 archetypes: `Qualifying-Dominant`, `Strategy-Dominant`, and `Mixed`.
-- **Outputs:** Updated `circuit_strategy_profile.csv` with `cluster_label`.
+**Notebooks Status:**
+- `01_extraction.ipynb` - Loads 14 raw CSVs ✓
+- `02_cleaning.ipynb` - Creates master_fact.csv, constructor_season_kpis.csv, circuit_strategy_profile.csv ✓
+- `03_eda.ipynb` - Has 12 charts, needs restructuring to 8 sections ⚠️
+- `04_statistical_analysis.ipynb` - Partially complete, needs 6 clear sections ⚠️
+- `05_final_load_prep.ipynb` - Needs Tableau-specific transformations ⚠️
+- `06_track_strategy_analysis.ipynb` - BONUS notebook, needs documentation ⚠️
 
-### [05] Final Load Prep (`05_final_load_prep.ipynb`)
-- **Action:** Applied strict formatting for Tableau and performed final data integrity assertions.
-- **Tableau Optimization:**
-    - **Boolean Casting:** Converted `is_win`, `is_pole`, `is_dnf` to `0/1` integers (enables direct aggregation in Tableau).
-    - **NaN Safety:** Filled `grid` NaNs with `0` (mapping to pit-lane starts) to ensure integer consistency.
-    - **String Normalization:** Formatted `driver_name_display` ("Surname, Forename") and mapped constructors to short codes (e.g., "RBR").
-- **Outputs:** Final production CSVs in `data/processed/`.
+**Data Files Required for Tableau:**
+1. `master_fact.csv` (~27,000 rows) - Main fact table
+2. `constructor_season_kpis.csv` (~200-300 rows) - Constructor aggregates
+3. `circuit_strategy_profile.csv` (~78 rows) - Circuit analysis with cluster_label
+4. `track_strategy_profiles.csv` (~78 rows) - BONUS detailed circuit data
+
+#### 3. Key Issues Identified
+
+**Notebook 03 (EDA):**
+- Current: 12 charts with descriptive titles
+- Required: Exactly 8 sections with INSIGHT-DRIVEN titles
+- Example BAD: "Points by Constructor"
+- Example GOOD: "McLaren and Alpine Have Highest Points Efficiency Among Mid-Field Teams Since 2018"
+
+**Notebook 04 (Statistical Analysis):**
+- Needs 6 clear sections with plain English conclusions
+- Must export circuit_strategy_profile.csv with cluster_label column
+- K-Means clustering (K=3) must label circuits as: Qualifying-Dominant, Strategy-Dominant, Mixed
+
+**Notebook 05 (Final Load Prep):**
+- Must convert booleans to 0/1 integers for Tableau
+- Must add driver_name_display = "Surname, Forename"
+- Must add constructor_short codes (MCL, RBR, FER, MER, etc.)
+- Must fill grid NaN with 0 (pit lane starts)
+- Must round pit stop columns to 1 decimal
+
+#### 4. Tableau Dashboard Requirements
+
+**4 Dashboards to Build (Manual - User will do this):**
+
+1. **Dashboard 1: Constructor Intelligence** (Executive View)
+   - Data: master_fact.csv + constructor_season_kpis.csv
+   - Views: Points Efficiency Trend, DNF Rate Bar, Win Conversion Scatter, KPI Cards
+   - Filters: Constructor multi-select, Year range slider
+
+2. **Dashboard 2: Pit Stop Analysis** (Operational View)
+   - Data: master_fact.csv
+   - Views: Pit Duration vs Position Scatter, Stop Count Stacked Bar, Duration Improvement Over Time
+   - Filters: Year range, Constructor, Circuit archetype
+
+3. **Dashboard 3: Race Craft** (Grid Delta View)
+   - Data: master_fact.csv
+   - Views: Grid Delta Box Plot, Grid vs Final Position Heatmap, Top 20 Position-Gaining Drivers
+   - Filters: Constructor, Year, Era
+
+4. **Dashboard 4: Circuit Intelligence** (Tactical View - THE STAR)
+   - Data: circuit_strategy_profile.csv
+   - Views: World Map, Lock-In Score Bar Chart, Optimal Stop Count Bar, Compound Bias Scatter
+   - Filters: Cluster dropdown
+
+**Critical Tableau Columns Needed:**
+- `cluster_label` (from K-Means in notebook 04)
+- `qualifying_lock_in_score` (Pearson r × 100)
+- `optimal_stop_count` (mode of stop_count for top-10 finishers)
+- `lat`, `lng` (for world map)
+- `is_win`, `is_dnf`, `is_podium`, `is_pole` (as 0/1 integers)
+- `driver_name_display` (formatted name)
+- `constructor_short` (3-4 letter codes)
+
+#### 5. Next Steps
+
+**Phase 1: Documentation (CURRENT)**
+- ✅ Create worklog.md
+- ⏳ Create README.md in /docs folder
+- ⏳ Create data_dictionary.md
+
+**Phase 2: Notebook Fixes (NEXT)**
+- Fix Notebook 03: Restructure to 8 sections with insight-driven titles
+- Fix Notebook 04: Add 6 clear sections, export cluster_label
+- Fix Notebook 05: Add Tableau transformations
+- Document Notebook 06: Add BONUS banner and section headers
+
+**Phase 3: Validation**
+- Run notebooks 01→05 in order
+- Verify all 4 CSV files are created correctly
+- Check that cluster_label column exists in circuit_strategy_profile.csv
+- Verify boolean columns are 0/1 integers in master_fact.csv
+
+**Phase 4: Tableau Preparation**
+- User will manually build 4 dashboards in Tableau Public
+- User will publish and get URL
+- User will take 4 screenshots
 
 ---
 
-## Technical Transformation Summary (LLM Optimized)
+## Important Notes
 
-| Feature | Transformation Logic | Analysis Purpose |
-| :--- | :--- | :--- |
-| `grid_to_finish_delta` | `grid - positionOrder` | Measure of "race craft" independent of qualifying performance. |
-| `is_dnf` | `1 if statusId not in {1,11..19} else 0` | Isolates mechanical and driver error from classified finishers. |
-| `cluster_label` | K-Means (K=3) on delta, qual_gap, and variance | Categorizes circuits for filtered strategy recommendations. |
-| `grid` (NaNs) | `fillna(0)` | Correctly classifies pit-lane starts for position-gain calculations. |
-| `points_efficiency` | `SUM(points) / COUNT(races)` | Normalizes team performance across varying season lengths. |
+### The 8 Required EDA Sections (Notebook 03)
+1. Points Efficiency trend per constructor (2010-2024)
+2. DNF Rate by constructor and by dnf_category
+3. Grid-to-Finish Delta distribution per constructor (box plot)
+4. Pit Stop Efficiency: avg pit duration per constructor per year trend
+5. Win/Podium Conversion Rate by constructor
+6. Qualifying Gap to Pole by constructor (violin plot)
+7. Correlation matrix of all numeric KPIs
+8. Era comparison: key KPIs split by era column
+
+### The 6 Required Statistical Sections (Notebook 04)
+1. Analysis Scope Definition (already exists)
+2. OLS Regression (points ~ grid + stop_count + avg_pit_ms)
+3. Hypothesis Test (fast vs slow pit stops → grid_to_finish_delta)
+4. K-Means Circuit Clustering (K=3)
+5. Pearson Correlation by Cluster + Stop Count Analysis
+6. Summary of Findings (5 Key Findings)
+
+### Critical: Grid-to-Finish Delta
+This is the HERO metric of the entire project. It isolates race strategy from car pace.
+Formula: `grid_to_finish_delta = grid - positionOrder`
+Positive value = gained positions
 
 ---
 
-## Maintenance Notes
-- **Source of Truth:** All files in `data/processed/` are derived from notebooks 01-05. Manual edits to CSVs should be avoided.
-- **Validation:** Notebook 05 must be run before any dashboard deployment to ensure schema consistency.
-- **Dependencies:** `pandas`, `numpy`, `statsmodels`, `sklearn`.
+## Changes Made
+
+### [Session 1 - Current]
+- Created IMPLEMENTATION_PLAN.md
+- Created docs/worklog.md (this file)
+- Next: Create docs/README.md
+
+---
+
+## Questions/Issues to Resolve
+- None yet
+
+---
+
+## Team Members
+- Project Lead: Mitul Bhatia
+- Data Lead: Ramani Dhruv Dineshbhai
+- ETL Lead: Vetriselvan R
+- Analysis Lead: Agrim Kumar Malhotra
+- Visualization Lead: Kushal Sarkar
+- Strategy Lead: Ritik Ranjan
+- PPT Lead: Palaparthi Harshakarthikeya

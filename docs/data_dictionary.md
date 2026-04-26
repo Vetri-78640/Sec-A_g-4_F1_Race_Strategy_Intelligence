@@ -58,6 +58,10 @@
 | dnf_category | str | Classification of DNF reason (Mechanical, Accident, etc.) | Finished | 0 |
 | grid_to_finish_delta | float64 | Net positions gained (Grid - PositionOrder) | 0.0 | 11882 |
 | driver_name | str | TBD | Lewis Hamilton | 0 |
-| era | str | TBD | V10/V8 | 0 |
+| era | str | TBD | V8 Era | 0 |
 | driver_name_display | str | Formatted driver name for labels (Surname, Forename) | Hamilton, Lewis | 0 |
 | constructor_short | str | Abbreviated constructor name for tight visualization layouts | MCL | 0 |
+| grid_delta_category | str | TBD | Held Position | 0 |
+| stop_count_bucket | str | TBD | 2 stops | 0 |
+| avg_pit_seconds | float64 | TBD | 24.5255 | 15999 |
+| fastest_pit_seconds | float64 | TBD | 24.254 | 15999 |
