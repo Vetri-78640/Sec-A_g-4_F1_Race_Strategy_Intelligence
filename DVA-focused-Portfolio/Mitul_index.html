@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mitul Bhatia — DVA Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #080c10;
+            --bg2: #0d1117;
+            --bg3: #161b22;
+            --border: #21262d;
+            --border2: #30363d;
+            --text: #e6edf3;
+            --muted: #7d8590;
+            --link: #58a6ff;
+            --accent: #f0883e;
+            --green: #3fb950;
+            --red: #f85149;
+            --purple: #bc8cff;
+            --yellow: #e3b341;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Syne', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        a { color: var(--link); text-decoration: none; }
+        a:hover { text-decoration: underline; }
+
+        /* ── HEADER ── */
+        header {
+            background: rgba(8,12,16,0.92);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 14px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            color: var(--muted);
+        }
+        .header-logo svg { fill: white; width: 28px; height: 28px; }
+        .header-nav { display: flex; gap: 6px; }
+        .nav-pill {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 5px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border2);
+            color: var(--muted);
+            background: var(--bg3);
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+        .nav-pill:hover, .nav-pill.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(240,136,62,0.08);
+        }
+        .nav-pill.active { color: var(--accent); }
+
+        /* ── HERO ── */
+        .hero {
+            padding: 80px 32px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .hero-tag {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hero-tag::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--accent);
+        }
+        .hero-name {
+            font-size: 56px;
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+        .hero-name span { color: var(--accent); }
+        .hero-sub {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--muted);
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+        .hero-bio {
+            font-size: 14px;
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 32px;
+            font-family: 'JetBrains Mono', monospace;
+            border-left: 2px solid var(--border2);
+            padding-left: 14px;
+        }
+        .hero-links {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .hero-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.2s;
+            text-decoration: none;
+        }
+        .hero-btn.primary {
+            background: var(--accent);
+            color: #000;
+            border: none;
+        }
+        .hero-btn.primary:hover { background: #ff9a4d; text-decoration: none; }
+        .hero-btn.secondary {
+            background: var(--bg3);
+            color: var(--text);
+            border: 1px solid var(--border2);
+        }
+        .hero-btn.secondary:hover { border-color: var(--accent); text-decoration: none; }
+
+        /* stat cards */
+        .hero-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+        .stat-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 2px;
+        }
+        .stat-card.orange::before { background: var(--accent); }
+        .stat-card.blue::before   { background: var(--link); }
+        .stat-card.green::before  { background: var(--green); }
+        .stat-card.purple::before { background: var(--purple); }
+        .stat-num {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .stat-card.orange .stat-num { color: var(--accent); }
+        .stat-card.blue .stat-num   { color: var(--link); }
+        .stat-card.green .stat-num  { color: var(--green); }
+        .stat-card.purple .stat-num { color: var(--purple); }
+        .stat-label {
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--muted);
+            letter-spacing: 0.5px;
+        }
+        .stat-icon {
+            position: absolute;
+            bottom: 14px;
+            right: 14px;
+            font-size: 28px;
+            opacity: 0.12;
+        }
+
+        /* ── SECTION ── */
+        .section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px;
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .section-title {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--muted);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .section-count {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            color: var(--muted);
+            background: var(--bg3);
+            border: 1px solid var(--border);
+            padding: 2px 10px;
+            border-radius: 20px;
+        }
+
+        /* ── SEARCH / FILTER ── */
+        .filter-bar {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .search-box {
+            flex: 1;
+            min-width: 200px;
+            background: var(--bg2);
+            border: 1px solid var(--border2);
+            border-radius: 8px;
+            color: var(--text);
+            padding: 8px 14px;
+            font-size: 13px;
+            font-family: 'JetBrains Mono', monospace;
+            outline: none;
+            transition: border 0.2s;
+        }
+        .search-box:focus { border-color: var(--accent); }
+        .search-box::placeholder { color: var(--muted); }
+        .filter-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+        .tag-btn {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            font-weight: 600;
+            padding: 5px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border2);
+            color: var(--muted);
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s;
+            letter-spacing: 0.5px;
+        }
+        .tag-btn:hover { border-color: var(--text); color: var(--text); }
+        .tag-btn.active { background: var(--accent); border-color: var(--accent); color: #000; }
+
+        /* ── PROJECT GRID ── */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+        @media (max-width: 900px) { .project-grid { grid-template-columns: 1fr; } }
+
+        /* ── PROJECT CARD ── */
+        .project-card {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+        .project-card:hover {
+            border-color: var(--border2);
+            transform: translateY(-2px);
+        }
+        .card-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border);
+            transition: transform 0.3s;
+        }
+        .project-card:hover .card-img { transform: scale(1.03); }
+        .card-img-wrapper { overflow: hidden; position: relative; }
+        .card-badge-over {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 3px 10px;
+            border-radius: 20px;
+            background: rgba(8,12,16,0.85);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: var(--text);
+        }
+
+        .card-body { padding: 18px; display: flex; flex-direction: column; flex: 1; }
+        .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; margin-bottom: 8px; }
+        .card-title { font-size: 14px; font-weight: 700; color: var(--link); word-break: break-word; }
+        .card-public { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--muted); border: 1px solid var(--border2); padding: 1px 8px; border-radius: 20px; white-space: nowrap; }
+        .card-desc { font-size: 12px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+        .card-topics { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 14px; }
+        .topic { font-family: 'JetBrains Mono', monospace; font-size: 10px; font-weight: 600; padding: 2px 10px; border-radius: 20px; background: rgba(88,166,255,0.08); color: var(--link); border: 1px solid rgba(88,166,255,0.2); }
+        .topic.orange { background: rgba(240,136,62,0.08); color: var(--accent); border-color: rgba(240,136,62,0.2); }
+        .topic.green  { background: rgba(63,185,80,0.08);  color: var(--green); border-color: rgba(63,185,80,0.2); }
+        .topic.purple { background: rgba(188,140,255,0.08); color: var(--purple); border-color: rgba(188,140,255,0.2); }
+        .card-footer { display: flex; align-items: center; gap: 14px; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); }
+        .lang-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+        .dot-python  { background: #e3b341; }
+        .dot-tableau { background: #e34c26; }
+        .dot-excel   { background: #3fb950; }
+        .dot-sheets  { background: #58a6ff; }
+        .dot-py-tab  { background: linear-gradient(135deg, #e3b341 50%, #e34c26 50%); }
+
+        .no-results {
+            display: none;
+            grid-column: 1/-1;
+            text-align: center;
+            padding: 48px;
+            color: var(--muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            border: 1px dashed var(--border2);
+            border-radius: 12px;
+        }
+
+        /* ── SKILLS ── */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+        .skill-group {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 18px;
+        }
+        .skill-group-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+        .skill-list { display: flex; flex-wrap: wrap; gap: 6px; }
+        .skill-badge {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+            padding: 3px 10px;
+            border-radius: 4px;
+            background: var(--bg3);
+            border: 1px solid var(--border2);
+            color: var(--text);
+        }
+
+        /* ── CONTRIBUTION GRAPH ── */
+        .contrib-section {
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 40px;
+        }
+        .contrib-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            color: var(--muted);
+            margin-bottom: 12px;
+        }
+        .contrib-grid { display: flex; flex-wrap: wrap; gap: 3px; }
+        .c-sq { width: 11px; height: 11px; border-radius: 2px; background: var(--border); }
+        .c-l1 { background: #0e4429; } .c-l2 { background: #006d32; }
+        .c-l3 { background: #26a641; } .c-l4 { background: #39d353; }
+
+        /* ── MODAL ── */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 1000;
+            display: flex; justify-content: center; align-items: center;
+            opacity: 0; visibility: hidden; transition: 0.2s; padding: 20px;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal {
+            background: var(--bg3); border: 1px solid var(--border2); border-radius: 14px;
+            width: 100%; max-width: 640px; max-height: 90vh; display: flex; flex-direction: column;
+            transform: scale(0.97); transition: 0.2s;
+            box-shadow: 0 24px 64px rgba(0,0,0,0.8);
+        }
+        .modal-overlay.active .modal { transform: scale(1); }
+        .modal-head {
+            padding: 18px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+        }
+        .modal-title { font-size: 16px; font-weight: 700; }
+        .modal-close {
+            background: none; border: none; color: var(--muted); cursor: pointer; padding: 4px; flex-shrink: 0;
+        }
+        .modal-close:hover { color: var(--text); }
+        .modal-body { padding: 20px; overflow-y: auto; flex: 1; }
+        .modal-img { width: 100%; height: 200px; object-fit: cover; border-radius: 8px; margin-bottom: 16px; border: 1px solid var(--border); }
+        .modal-desc { font-size: 14px; color: var(--text); line-height: 1.65; }
+        .modal-foot {
+            padding: 16px 20px; border-top: 1px solid var(--border);
+            display: flex; justify-content: flex-end; gap: 10px;
+        }
+        .btn-cancel { background: var(--bg2); border: 1px solid var(--border2); color: var(--text); padding: 7px 18px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px; }
+        .btn-primary { background: var(--accent); border: none; color: #000; padding: 7px 18px; border-radius: 8px; font-weight: 700; cursor: pointer; font-size: 13px; text-decoration: none; display: inline-block; }
+        .btn-primary:hover { background: #ff9a4d; text-decoration: none; }
+
+        /* ── FOOTER ── */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 40px 32px;
+            text-align: center;
+            color: var(--muted);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 11px;
+        }
+        footer a { color: var(--muted); margin: 0 8px; }
+        footer a:hover { color: var(--link); }
+
+        @media (max-width: 768px) {
+            .hero { grid-template-columns: 1fr; gap: 32px; padding: 40px 20px; }
+            .hero-name { font-size: 38px; }
+            .skills-grid { grid-template-columns: 1fr; }
+            .section { padding: 20px; }
+            header { padding: 12px 20px; }
+            .header-nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+    <div class="header-logo">
+        <svg viewBox="0 0 16 16"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        mitul-bhatia / dva-portfolio
+    </div>
+    <nav class="header-nav">
+        <button class="nav-pill active" data-nav="all">All</button>
+        <button class="nav-pill" data-nav="finance">Finance</button>
+        <button class="nav-pill" data-nav="sports">Sports Analytics</button>
+        <button class="nav-pill" data-nav="healthcare">Healthcare</button>
+        <button class="nav-pill" data-nav="ai">AI / Dev</button>
+    </nav>
+</header>
+
+<!-- ── HERO ── -->
+<section class="hero">
+    <div class="hero-left">
+        <div class="hero-tag">Data &amp; Visual Analytics</div>
+        <h1 class="hero-name">Mitul<br><span>Bhatia</span></h1>
+        <p class="hero-sub">Aspiring Business & Data Analyst · NST'28</p>
+        <p class="hero-bio">
+            B.Tech AI @ Newton School of Technology · CGPA 9.0<br>
+            Turning raw datasets into decisions — through ETL pipelines,<br>
+            financial models, and Tableau dashboards.
+        </p>
+        <div class="hero-links">
+            <a href="https://github.com/mitul-bhatia" target="_blank" class="hero-btn primary">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                GitHub
+            </a>
+            <a href="mailto:mitul.bhatia2024@nst.rishihood.edu.in" class="hero-btn secondary">✉ Contact</a>
+            <a href="https://linkedin.com/in/mitul-bhatia" target="_blank" class="hero-btn secondary">LinkedIn</a>
+        </div>
+    </div>
+    <div class="hero-stats">
+        <div class="stat-card orange">
+            <div class="stat-num">726K+</div>
+            <div class="stat-label">F1 Records Analyzed</div>
+            <div class="stat-icon">🏎️</div>
+        </div>
+        <div class="stat-card blue">
+            <div class="stat-num">14K+</div>
+            <div class="stat-label">Patient Records</div>
+            <div class="stat-icon">🏥</div>
+        </div>
+        <div class="stat-card green">
+            <div class="stat-num">9.0</div>
+            <div class="stat-label">CGPA / 10.0</div>
+            <div class="stat-icon">🎓</div>
+        </div>
+        <div class="stat-card purple">
+            <div class="stat-num">5</div>
+            <div class="stat-label">DVA Projects</div>
+            <div class="stat-icon">📊</div>
+        </div>
+    </div>
+</section>
+
+<!-- ── PROJECTS ── -->
+<section class="section">
+    <div class="section-header">
+        <span class="section-title">Repositories</span>
+        <span class="section-count" id="proj-count">6</span>
+    </div>
+
+    <div class="filter-bar">
+        <input type="text" id="search" class="search-box" placeholder="// find a project...">
+        <div class="filter-tags">
+            <button class="tag-btn active" data-filter="all">All</button>
+            <button class="tag-btn" data-filter="finance">Financial</button>
+            <button class="tag-btn" data-filter="sports">Sports</button>
+            <button class="tag-btn" data-filter="healthcare">Healthcare</button>
+            <button class="tag-btn" data-filter="ai">AI / Dev</button>
+        </div>
+    </div>
+
+    <div class="project-grid" id="grid">
+
+        <!-- F1 Race Strategy Intelligence -->
+        <div class="project-card open-modal"
+             data-cat="sports"
+             data-title="F1 Race Strategy Intelligence"
+             data-img="https://github.com/mitul-bhatia/Sec-A_g-4_F1_Race_Strategy_Intelligence/raw/main/assets/banner.png"
+             data-link="https://github.com/mitul-bhatia/Sec-A_g-4_F1_Race_Strategy_Intelligence"
+             data-desc="DVA Capstone Gate 1 · Section A, Group 4 · NST. Analyzed how strategic execution — qualifying precision, pit stop efficiency, and circuit tactics — drives Constructor Championship outcomes. Built a 5-notebook ETL pipeline processing 726,600+ records across 76 F1 seasons and 111 attributes from the Ergast dataset. Engineered Grid-to-Finish Excellence Delta and Operational Efficiency Score KPIs; applied hypothesis testing to quantify pit strategy value. Built Tableau dashboards comparing 1-stop vs 2-stop strategies across circuit types. Led a 7-member cross-functional team.">
+            <div class="card-img-wrapper">
+                <img src="https://github.com/mitul-bhatia/Sec-A_g-4_F1_Race_Strategy_Intelligence/raw/main/assets/banner.png"
+                     onerror="this.src='https://images.unsplash.com/photo-1562113530-57ba467cea38?auto=format&fit=crop&w=800&q=80'"
+                     alt="F1 Banner" class="card-img">
+                <span class="card-badge-over">DVA · Gate 1</span>
+            </div>
+            <div class="card-body">
+                <div class="card-top">
+                    <span class="card-title">F1-Race-Strategy-Intelligence</span>
+                    <span class="card-public">Public</span>
+                </div>
+                <p class="card-desc">Decoding the science behind every pit call, grid slot & championship point — 726K+ records, 76 F1 seasons, Tableau dashboards.</p>
+                <div class="card-topics">
+                    <span class="topic">python</span>
+                    <span class="topic orange">tableau</span>
+                    <span class="topic">pandas</span>
+                    <span class="topic green">sports-analytics</span>
+                    <span class="topic">hypothesis-testing</span>
+                </div>
+                <div class="card-footer">
+                    <span><span class="lang-dot dot-py-tab"></span> Python · Tableau</span>
+                    <span>⭐ 1</span>
+                    <span>🍴 4</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Efficiency of Speed -->
+        <div class="project-card open-modal"
+             data-cat="sports"
+             data-title="The Efficiency of Speed — F1 Hybrid Era (2014–2025)"
+             data-img="https://images.unsplash.com/photo-1562113530-57ba467cea38?auto=format&fit=crop&w=800&q=80"
+             data-link="https://github.com/mitul-bhatia/Section_A_G-4_The_Efficiency_of_Speed"
+             data-desc="DVA Capstone Gate 2 · Section A, Group 4. Investigated whether F1 races in the Hybrid Era (2014–2025) are won through raw track pace or pit lane execution. Built and merged 7 relational CSV tables (races, results, pit_stops, lap_times, drivers, constructors, circuits) using Pandas; engineered a Pace Retention Rate metric as a proxy for tyre degradation. Applied SciPy statistical analysis and built Tableau dashboards to visualize Position Delta vs pit stop duration across circuit categories.">
+            <div class="card-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1562113530-57ba467cea38?auto=format&fit=crop&w=800&q=80" alt="F1 Speed" class="card-img">
+                <span class="card-badge-over">DVA · Gate 2</span>
+            </div>
+            <div class="card-body">
+                <div class="card-top">
+                    <span class="card-title">The-Efficiency-of-Speed</span>
+                    <span class="card-public">Public</span>
+                </div>
+                <p class="card-desc">F1 Hybrid Era 2014–2025: Do races hinge on raw pace or pit stop execution? Merges 7 relational tables, engineers Pace Retention Rate, validated with Tableau.</p>
+                <div class="card-topics">
+                    <span class="topic">python</span>
+                    <span class="topic orange">tableau</span>
+                    <span class="topic">scipy</span>
+                    <span class="topic green">etl-pipeline</span>
+                </div>
+                <div class="card-footer">
+                    <span><span class="lang-dot dot-py-tab"></span> Python · Tableau</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hospital Readmission -->
+        <div class="project-card open-modal"
+             data-cat="healthcare"
+             data-title="Hospital Readmission Optimization"
+             data-img="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80"
+             data-link="https://github.com/mitul-bhatia/SectionA_Group-16_optimize-hospital-readmission"
+             data-desc="DVA Capstone · Healthcare Analytics · Section A, Group 16. Analyzed 14,116 patient records from 130 US hospitals (1999–2008) across Circulatory, Diabetes, Respiratory, and Other conditions. Performed full data cleaning pipeline: single-encounter rule, ICD-9 grouping, feature engineering of Primary_Condition, A1C_None, High_Risk_Flag. Quantified $20.49M in revenue leakage; identified 83.1% A1C testing gap and 56% emergency admission share. Built Google Sheets dashboard with dynamic filters. Delivered 4 recommendations projected to save $1–2M annually. Project Lead — contributed across all workstreams.">
+            <div class="card-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80" alt="Healthcare" class="card-img">
+                <span class="card-badge-over">DVA · Healthcare</span>
+            </div>
+            <div class="card-body">
+                <div class="card-top">
+                    <span class="card-title">Hospital-Readmission-Optimizer</span>
+                    <span class="card-public">Public</span>
+                </div>
+                <p class="card-desc">14,116 patient records · $20.5M revenue leakage identified · 83.1% A1C testing gap · Google Sheets dashboard with dynamic filters for Condition & Age.</p>
+                <div class="card-topics">
+                    <span class="topic green">google-sheets</span>
+                    <span class="topic">excel</span>
+                    <span class="topic purple">healthcare-analytics</span>
+                    <span class="topic">dashboard</span>
+                </div>
+                <div class="card-footer">
+                    <span><span class="lang-dot dot-sheets"></span> Google Sheets · Excel</span>
+                    <span>🍴 1</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hindalco vs NALCO -->
+        <div class="project-card open-modal"
+             data-cat="finance"
+             data-title="Hindalco vs NALCO — Financial Ratio Analysis (FY22–FY25)"
+             data-img="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80"
+             data-link="https://github.com/mitul-bhatia/Fianance_project"
+             data-desc="Compared Hindalco Industries and National Aluminium Company across FY22–FY25 using 16+ key financial ratios including liquidity, profitability, efficiency, and valuation metrics. Built detailed Excel dashboards with consolidated income statements, balance sheets, and common-size financial statements. Key findings: NALCO's superior liquidity (current ratio 2.61 vs 1.56) and profitability (ROE 29.5% vs 13%), while Hindalco showed stronger asset efficiency. Investment recommendation: BUY NALCO (growth) / HOLD Hindalco (stability). Visualized with Tableau dashboards.">
+            <div class="card-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?auto=format&fit=crop&w=800&q=80" alt="Finance" class="card-img">
+                <span class="card-badge-over">Financial Analysis</span>
+            </div>
+            <div class="card-body">
+                <div class="card-top">
+                    <span class="card-title">Hindalco-vs-NALCO-Financial-Analysis</span>
+                    <span class="card-public">Public</span>
+                </div>
+                <p class="card-desc">16+ financial ratios · FY22–FY25 · NALCO ROE 29.5% vs Hindalco 13% · BUY NALCO / HOLD Hindalco investment recommendation.</p>
+                <div class="card-topics">
+                    <span class="topic green">excel</span>
+                    <span class="topic orange">tableau</span>
+                    <span class="topic">financial-modeling</span>
+                    <span class="topic purple">ratio-analysis</span>
+                </div>
+                <div class="card-footer">
+                    <span><span class="lang-dot dot-excel"></span> Excel · Tableau</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- APL Apollo vs Tata Steel -->
+        <div class="project-card open-modal"
+             data-cat="finance"
+             data-title="APL Apollo vs Tata Steel — Steel & Pipes Industry Analysis"
+             data-img="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80"
+             data-link="https://github.com/mitul-bhatia/Fianance_project"
+             data-desc="Compared APL Apollo Tubes and Tata Steel Limited across FY22–FY25 through 15+ key financial ratios covering liquidity, efficiency, profitability, and valuation. Identified APL's superior asset efficiency (2.5–2.9x turnover vs TSL's 0.8x) and TSL's declining profitability (ROE dropped from 36% to 3%). Synthesized industry research covering India's ₹50,000+ crore steel market, key players, and the sector's 2% GDP contribution. Excel dashboards with income statements, balance sheets, and common-size statements.">
+            <div class="card-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=800&q=80" alt="Steel" class="card-img">
+                <span class="card-badge-over">Financial Analysis</span>
+            </div>
+            <div class="card-body">
+                <div class="card-top">
+                    <span class="card-title">APL-Apollo-vs-Tata-Steel-Analysis</span>
+                    <span class="card-public">Public</span>
+                </div>
+                <p class="card-desc">15+ ratios · APL asset turnover 2.9x vs TSL 0.8x · Tata Steel ROE collapse 36%→3% · ₹50,000cr+ industry analysis.</p>
+                <div class="card-topics">
+                    <span class="topic green">excel</span>
+                    <span class="topic">financial-modeling</span>
+                    <span class="topic purple">industry-analysis</span>
+                </div>
+                <div class="card-footer">
+                    <span><span class="lang-dot dot-excel"></span> Excel · PowerPoint</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Agrovers -->
+        <div class="project-card open-modal"
+             data-cat="ai"
+             data-title="Agrovers — AI Soil Testing Assistant"
+             data-img="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80"
+             data-link="https://github.com/mitul-bhatia"
+             data-desc="AI-powered soil analysis tool that collects 8+ soil parameters with confidence-based validation. Generates AI-driven PDF reports in 5 seconds using multi-agent reasoning to recommend crops and fertilizers. Features a bilingual (Hindi/English) voice interface with STT/TTS, reducing data input effort by 60%. Built with Python, FastAPI, React (TypeScript), LLMs, and Voice AI — targeting India's rural agricultural sector.">
+            <div class="card-img-wrapper">
+                <img src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=800&q=80" alt="Agriculture AI" class="card-img">
+                <span class="card-badge-over">AI Project</span>
+            </div>
+            <div class="card-body">
+                <div class="card-top">
+                    <span class="card-title">Agrovers-AI-Soil-Assistant</span>
+                    <span class="card-public">Public</span>
+                </div>
+                <p class="card-desc">PDF reports in 5s · Bilingual voice (Hindi/English) · 60% less input effort · Multi-agent AI reasoning for crop & fertilizer recommendations.</p>
+                <div class="card-topics">
+                    <span class="topic">python</span>
+                    <span class="topic">fastapi</span>
+                    <span class="topic purple">llm</span>
+                    <span class="topic green">voice-ai</span>
+                </div>
+                <div class="card-footer">
+                    <span><span class="lang-dot dot-python"></span> Python · TypeScript</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-results" id="no-results">// no matching projects found</div>
+    </div>
+</section>
+
+<!-- ── SKILLS ── -->
+<section class="section">
+    <div class="section-header">
+        <span class="section-title">Technical Skills</span>
+    </div>
+    <div class="skills-grid">
+        <div class="skill-group">
+            <div class="skill-group-title">Data & Analytics</div>
+            <div class="skill-list">
+                <span class="skill-badge">Excel (Advanced)</span>
+                <span class="skill-badge">Tableau</span>
+                <span class="skill-badge">Google Sheets</span>
+                <span class="skill-badge">Power Query</span>
+                <span class="skill-badge">Pivot Tables</span>
+                <span class="skill-badge">Financial Modeling</span>
+            </div>
+        </div>
+        <div class="skill-group">
+            <div class="skill-group-title">Programming & ETL</div>
+            <div class="skill-list">
+                <span class="skill-badge">Python</span>
+                <span class="skill-badge">Pandas</span>
+                <span class="skill-badge">NumPy</span>
+                <span class="skill-badge">Matplotlib</span>
+                <span class="skill-badge">SciPy</span>
+                <span class="skill-badge">SQL</span>
+                <span class="skill-badge">Jupyter</span>
+            </div>
+        </div>
+        <div class="skill-group">
+            <div class="skill-group-title">Certifications</div>
+            <div class="skill-list">
+                <span class="skill-badge">Deloitte DA (Forage)</span>
+                <span class="skill-badge">Tata Insights (Forage)</span>
+                <span class="skill-badge">Accenture (Forage)</span>
+                <span class="skill-badge">Python DVA (Udemy)</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── CONTRIBUTION GRAPH ── -->
+<section class="section">
+    <div class="contrib-section">
+        <div class="contrib-title">contribution activity · 2025 – 2026</div>
+        <div class="contrib-grid" id="contrib-grid"></div>
+    </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+    <p>© <span id="yr"></span> Mitul Bhatia · Newton School of Technology · DVA Portfolio</p>
+    <div style="margin-top:10px;">
+        <a href="https://github.com/mitul-bhatia" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/mitul-bhatia" target="_blank">LinkedIn</a>
+        <a href="mailto:mitul.bhatia2024@nst.rishihood.edu.in">Contact</a>
+    </div>
+</footer>
+
+<!-- ── MODAL ── -->
+<div class="modal-overlay" id="modal">
+    <div class="modal">
+        <div class="modal-head">
+            <div class="modal-title" id="m-title"></div>
+            <button class="modal-close" id="m-close">
+                <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M3.72 3.72a.75.75 0 011.06 0L8 6.94l3.22-3.22a.75.75 0 111.06 1.06L9.06 8l3.22 3.22a.75.75 0 11-1.06 1.06L8 9.06l-3.22 3.22a.75.75 0 01-1.06-1.06L6.94 8 3.72 4.78a.75.75 0 010-1.06z"/></svg>
+            </button>
+        </div>
+        <div class="modal-body">
+            <img src="" id="m-img" alt="Project" class="modal-img" onerror="this.style.display='none'">
+            <p class="modal-desc" id="m-desc"></p>
+        </div>
+        <div class="modal-foot">
+            <button class="btn-cancel" id="m-cancel">Close</button>
+            <a href="#" target="_blank" class="btn-primary" id="m-link">View on GitHub →</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Year
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // Contribution graph
+    const cg = document.getElementById('contrib-grid');
+    const cls = ['','c-l1','c-l2','','','c-l3','','c-l4','c-l1'];
+    for (let i = 0; i < 260; i++) {
+        const d = document.createElement('div');
+        d.className = 'c-sq ' + cls[Math.floor(Math.random() * cls.length)];
+        cg.appendChild(d);
+    }
+
+    // Filter + search
+    const cards = document.querySelectorAll('.project-card');
+    const noRes = document.getElementById('no-results');
+    const count = document.getElementById('proj-count');
+    let cur = 'all', q = '';
+
+    function doFilter() {
+        let n = 0;
+        cards.forEach(c => {
+            const cat = c.dataset.cat;
+            const txt = (c.dataset.title + c.dataset.desc).toLowerCase();
+            const catOk = cur === 'all' || cat === cur;
+            const qOk = !q || txt.includes(q);
+            const show = catOk && qOk;
+            c.style.display = show ? 'flex' : 'none';
+            if (show) n++;
+        });
+        noRes.style.display = n === 0 ? 'block' : 'none';
+        count.textContent = n;
+    }
+
+    document.querySelectorAll('.tag-btn').forEach(b => {
+        b.addEventListener('click', () => {
+            document.querySelectorAll('.tag-btn').forEach(x => x.classList.remove('active'));
+            b.classList.add('active');
+            cur = b.dataset.filter;
+            doFilter();
+        });
+    });
+
+    document.querySelectorAll('[data-nav]').forEach(b => {
+        b.addEventListener('click', () => {
+            document.querySelectorAll('[data-nav]').forEach(x => x.classList.remove('active'));
+            b.classList.add('active');
+            cur = b.dataset.nav;
+            // sync tag buttons too
+            document.querySelectorAll('.tag-btn').forEach(x => {
+                x.classList.toggle('active', x.dataset.filter === cur);
+            });
+            doFilter();
+        });
+    });
+
+    document.getElementById('search').addEventListener('input', e => {
+        q = e.target.value.toLowerCase().trim();
+        doFilter();
+    });
+
+    doFilter();
+
+    // Modal
+    const modal = document.getElementById('modal');
+    const mTitle = document.getElementById('m-title');
+    const mImg   = document.getElementById('m-img');
+    const mDesc  = document.getElementById('m-desc');
+    const mLink  = document.getElementById('m-link');
+
+    document.querySelectorAll('.open-modal').forEach(c => {
+        c.addEventListener('click', () => {
+            mTitle.textContent = c.dataset.title;
+            mImg.src = c.dataset.img;
+            mImg.style.display = 'block';
+            mDesc.textContent = c.dataset.desc;
+            mLink.href = c.dataset.link;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+
+    const closeModal = () => {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    };
+
+    document.getElementById('m-close').addEventListener('click', closeModal);
+    document.getElementById('m-cancel').addEventListener('click', closeModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
