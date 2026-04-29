@@ -222,13 +222,13 @@ A seasonally aggregated measure of average pit stop duration per constructor —
 
 To successfully transform the Ergast Database into actionable analytics, we follow a rigorously phased roadmap.
 
-### ✅ What Has Been Implemented
+###  What Has Been Implemented
 - **Notebook 01 (Extraction):** Extracted `14` unedited relational CSV files while preserving text structures for accurate null tracking.
 - **Notebook 02 (Cleaning):** Addressed data gaps, categorized DNFs, parsed string time data to robust continuous millisecond durations, and generated the fundamental `master_fact.csv`.
 - **Notebook 03 (EDA Phase):** Derived and visualized **8 critical metrics** including points efficiency trends, DNF rates, Grid-to-Finish distributions (the hero metric), pit stop operational speeds, winning conversion scatter plots, and constructed correlation matrices specifically scaled for continuous numerical KPIs.
 - **Notebook 04 (Statistical Methods):** Completed OLS Regression proving Grid Position yields a β ≈ -0.6 impact on points, conducted hypothesis testing on pit stop significance (p < 0.05), and launched **K-Means Clustering (K=3)** to successfully categorize all unique race tracks into `Qualifying-Dominant`, `Strategy-Dominant`, or `Mixed` archetypes.
 
-### ⏳ Further Implementation & Next Steps
+###  Further Implementation & Next Steps
 - **Notebook 05 (Tableau Load Prep):** Optimize outputs by casting booleans to binary integers and standardizing circuit identifiers into a comprehensive `circuit_strategy_profile.csv`.
 - **Notebook 06 (Bonus Track Strategies):** Refine circuit analysis to determine compound/tire wear bias, pit window percentiles, and construct track radar charts logically mapped to the K-Means clusters.
 - **Interactive Dashboards Formulation:** Hand-off processed outputs into the **4 Core Tableau Dashboards** (Executive View, Pit Strategy, Grid Delta Race Craft, and the Tactical Circuit Intelligence map). 
